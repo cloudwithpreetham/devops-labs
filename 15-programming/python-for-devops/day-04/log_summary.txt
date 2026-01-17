@@ -1,0 +1,6 @@
+Log Analysis Summary
+--------------------
+INFO messages    : 10
+WARNING messages : 2
+ERROR messages   : 3
+Total log entries: 15
