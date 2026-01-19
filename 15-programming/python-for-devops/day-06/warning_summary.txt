@@ -1,0 +1,4 @@
+Log Analysis Summary
+--------------------
+Filtered Level: WARNING
+WARNING: 2
