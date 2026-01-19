@@ -1,0 +1,4 @@
+Log Analysis Summary
+--------------------
+Filtered Level: ERROR
+ERROR: 3
