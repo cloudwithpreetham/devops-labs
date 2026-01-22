@@ -1,0 +1,8 @@
+2026-01-22 09:00:01 INFO Zookeeper service started
+2026-01-22 09:01:15 INFO Client connected successfully
+2026-01-22 09:03:20 WARN High latency detected
+2026-01-22 09:05:42 INFO Leader election completed
+2026-01-22 09:07:10 ERROR Failed to sync follower node
+2026-01-22 09:09:30 WARN Connection timeout warning
+2026-01-22 09:12:45 INFO Snapshot saved successfully
+2026-01-22 09:15:00 ERROR Disk write failure detected
