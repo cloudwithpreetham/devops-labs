@@ -1,106 +1,127 @@
 # Day 01 – Introduction to DevOps and Cloud
 
-## Task
+Welcome to Day 01 of my **#90DaysOfDevOps** journey.
 
-Today’s goal is to **set the foundation for your DevOps journey**.
-
-You will create a **90-day personal DevOps learning plan** that clearly defines:
-
-- What is your understanding of DevOps and Cloud Engineering?
-- Why you are starting learning DevOps & Cloud?
-- Where do you want to reach?
-- How you will stay consistent every single day?
-
-This is not a generic plan.
-This is your **career execution blueprint** for the next 90 days.
+This marks the beginning of a focused 90-day commitment to becoming a **job-ready DevOps Engineer** through consistent learning, hands-on projects, and public documentation of progress.
 
 ---
 
-## Expected Output
+## Objective of Day 01
 
-By the end of today, you should have:
+The goal of Day 01 was to create a **personal DevOps & Cloud learning blueprint** for the next 90 days.
 
-- A markdown file named:
-  `day-01-learning-plan.md`
+This included defining:
 
-or
+- My current skill level
+- My understanding of DevOps & Cloud Engineering
+- Why I am starting this journey
+- Clear technical goals for the next 90 days
+- Skills I want to master
+- My execution plan for staying consistent
 
-- A hand written plan for the next 90 Days (Recommended)
-
-The file/note should clearly reflect your intent, discipline, and seriousness toward becoming a DevOps engineer.
-
----
-
-## Guidelines
-
-Follow these rules while creating your plan:
-
-- Mention your **current level**
-  (student / fresher / working professional / non-IT background, etc.)
-- Define **3 clear goals** for the next 90 days
-  (example: deploy a production-grade application on Kubernetes)
-- Define **3 core DevOps skills** you want to build
-  (example: Linux troubleshooting, CI/CD pipelines, Kubernetes debugging)
-- Allocate a **weekly time budget**
-  (example: 2–2.5 hours per day on weekdays, 4-6 hours weekends)
-- Keep the document **under 1 page**
-- Be honest and realistic; consistency matters more than perfection
+This is not just a plan—it is a commitment.
 
 ---
 
-## Resources
+## My Current Level
 
-You may refer to:
+I am currently a **fresher** with practical exposure to:
 
-- TrainWithShubham [course curriculum](https://english.trainwithshubham.com/JOSH_BATCH_10_Syllabus_v1.pdf)
-- TrainWithShubham DevOps [roadmap](https://docs.google.com/spreadsheets/d/1eE-NhZQFr545LkP4QNhTgXcZTtkMFeEPNyVXAflXia0/edit?gid=2073716385#gid=2073716385)
-- Your own past experience and career aspirations
+- Linux fundamentals
+- Git & GitHub
+- Basic cloud concepts
+- Container basics
+- Beginner scripting
 
-Avoid over-researching today. The focus is **clarity**, not depth.
+My goal is to transform this foundation into **real-world DevOps engineering capability**.
 
 ---
 
-## Why This Matters for DevOps
+## My 90-Day Goals
 
-DevOps engineers succeed not just because of tools, but because of:
+By the end of this journey, I aim to:
 
-- Discipline
+- Deploy production-grade applications using Docker & Kubernetes
+- Build end-to-end CI/CD pipelines
+- Master Linux troubleshooting and cloud operations
+- Work confidently with Infrastructure as Code
+- Build a strong GitHub portfolio of practical DevOps projects
+
+---
+
+## Core Skills I Will Build
+
+- Linux Administration
+- Networking Fundamentals
+- Git & Version Control
+- Docker
+- Kubernetes
+- CI/CD Automation
+- Terraform
+- Ansible
+- Monitoring & Observability
+- Cloud (AWS)
+
+---
+
+## My Learning Approach
+
+I will follow a strict execution model:
+
+**Learn → Build → Document → Share**
+
+Daily process:
+
+1. Learn concept
+2. Practice hands-on
+3. Build mini-project / lab
+4. Document learnings in GitHub
+5. Share journey publicly
+
+---
+
+## Weekly Commitment
+
+| Days     | Time Commitment |
+| -------- | --------------- |
+| Weekdays | 4–6 Hours       |
+| Weekends | 6–8 Hours       |
+
+Consistency > Motivation.
+
+---
+
+## Files in this Folder
+
+- `day-01-learning-plan.md` → My 90-day DevOps learning blueprint
+- `reference.md` → Helpful resources / roadmap references
+- `README.md` → Documentation for Day 01
+
+---
+
+## Key Takeaway
+
+DevOps is not just about tools.
+
+It is about:
+
 - Ownership
-- Long-term thinking
-- Ability to execute consistently
+- Discipline
+- Automation mindset
+- Continuous improvement
+- Building reliable systems
 
-In real jobs, no one tells you exactly what to do every day.
-This task trains you to **take ownership of your own growth**, just like a real DevOps engineer.
-
-A clear plan:
-
-- Reduces confusion
-- Prevents burnout
-- Keeps you focused during tough days
+Day 01 is where that mindset starts.
 
 ---
 
-## Submission
+## Commitment
 
-1. Fork this `90DaysOfDevOps` repository
-2. Navigate to the `2026/day-01/` folder
-3. Add your `day-01-learning-plan.md` file
-4. Commit and push your changes to your fork
+I am committed to showing up every day, learning deeply, building consistently, and documenting honestly.
+
+This journey is not for 90 days only—
+it is preparation for a long-term career in DevOps.
 
 ---
 
-## Learn in Public
-
-Share your Day 01 progress on LinkedIn:
-
-- Post 2–3 lines on why you’re starting **#90DaysOfDevOps**
-- Share one goal from your learning plan
-- Optional: screenshot of your markdown file or a professional picture
-
-Use hashtags:
-#90DaysOfDevOps
-#DevOpsKaJosh
-#TrainWithShubham
-
-Happy Learning
-**TrainWithShubham**
+**Day 01 Completed Successfully**
