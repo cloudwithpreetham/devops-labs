@@ -1,94 +1,178 @@
 # Day 04 – Linux Practice: Processes and Services
 
-## Task
+## Overview
 
-Today’s goal is to **practice Linux fundamentals with real commands**.
+Day 04 focused on hands-on Linux fundamentals by working directly with:
 
-You will create a short practice note by actually running basic commands and capturing what you see:
+- Process monitoring
+- Service inspection using systemd
+- Log analysis
+- Basic troubleshooting workflow
 
-- Check running processes
-- Inspect one systemd service
-- Capture a small troubleshooting flow
-
-This is hands-on. Keep it simple and focused on fundamentals.
-
----
-
-## Expected Output
-
-By the end of today, you should have:
-
-- A markdown file named:
-  `day-04-linux-practice.md`
-
-or
-
-- A hand written practice log (Recommended)
-
-Your note should show what you actually ran on your system.
+This exercise helped build operational confidence with commands commonly used by DevOps engineers during production debugging.
 
 ---
 
-## Guidelines
+## Objectives
 
-Follow these rules while creating your practice note:
+The goal of this practice was to:
 
-- Run and record output for **at least 6 commands**
-- Include **2 process commands** (`ps`, `top`, `pgrep`, etc.)
-- Include **2 service commands** (`systemctl status`, `systemctl list-units`, etc.)
-- Include **2 log commands** (`journalctl -u <service>`, `tail -n 50`, etc.)
-- Pick **one service on your system** (example: `ssh`, `cron`, `docker`) and inspect it
-- Keep it **simple and actionable**
-
-Suggested structure for `linux-practice.md`:
-
-- Process checks
-- Service checks
-- Log checks
-- Mini troubleshooting steps
+- Understand running processes in Linux
+- Inspect active services using `systemctl`
+- Analyze logs using `journalctl` and `syslog`
+- Follow a troubleshooting workflow
+- Connect Linux debugging with cloud infrastructure concepts
 
 ---
 
-## Resources
+## Commands Practiced
 
-You may refer to:
+### Process Commands
 
-- Your notes from Day 02 and Day 03
-- Linux `man` pages
-- Your class notes
+```bash
+ps aux | head -10
+top
+```
 
----
+Learned:
 
-## Why This Matters for DevOps
-
-Hands‑on practice builds speed and confidence.
-
-When issues happen in production, you won’t have time to search for basic commands.
-This day helps you build muscle memory with Linux fundamentals.
-
----
-
-## Submission
-
-1. Fork this `90DaysOfDevOps` repository
-2. Navigate to the `2026/day-04/` folder
-3. Add your `day-04-linux-practice.md` file
-4. Commit and push your changes to your fork
+- Process hierarchy
+- PID understanding
+- CPU / Memory monitoring
+- Kernel threads
+- System load interpretation
 
 ---
 
-## Learn in Public
+### Service Commands
 
-Share your Day 04 progress on LinkedIn:
+```bash
+systemctl list-units --type=service --state=running
+systemctl status ssh
+```
 
-- Post 2–3 lines on the Linux commands you practiced
-- Share one service you inspected and what you learned
-- Optional: screenshot of your practice note
+Learned:
 
-Use hashtags:
-#90DaysOfDevOps
-#DevOpsKaJosh
-#TrainWithShubham
+- Active service inspection
+- Service health checks
+- Service states (`active`, `running`, `failed`)
+- Port listening verification
 
-Happy Learning
-**TrainWithShubham**
+---
+
+### Log Commands
+
+```bash
+journalctl -u ssh --no-pager | tail -10
+tail -n 20 /var/log/syslog
+```
+
+Learned:
+
+- Authentication logs
+- Service startup logs
+- System-level log inspection
+- Root cause discovery using logs
+
+---
+
+## Real Troubleshooting Scenario
+
+### Problem Found
+
+While inspecting system logs, an issue was discovered with **AWS Systems Manager (SSM Agent)**:
+
+```text
+AccessDeniedException
+EC2RoleProvider Failed to connect
+```
+
+### Root Cause
+
+Incorrect IAM configuration:
+
+- Policy attached to IAM User
+- No IAM Role attached to EC2 instance
+
+### Fix Applied
+
+Created and attached:
+
+```text
+AmazonSSMManagedInstanceCore
+```
+
+to EC2 IAM Role.
+
+Restarted service:
+
+```bash
+sudo systemctl restart snap.amazon-ssm-agent.amazon-ssm-agent.service
+```
+
+### Verification
+
+Logs confirmed:
+
+```text
+Successfully connected with instance profile role
+Credentials ready
+```
+
+Issue resolved successfully.
+
+---
+
+## Key Learnings
+
+- `ps` → static process snapshot
+- `top` → real-time monitoring
+- `systemctl` → service management
+- `journalctl` → service log analysis
+- `syslog` → system-wide logging
+- Logs reveal root cause faster than assumptions
+- IAM Role ≠ IAM User
+- EC2 uses temporary credentials via IMDS
+
+---
+
+## Folder Structure
+
+```text
+day-04/
+├── screenshots/
+├── day-04-linux-practice.md
+├── README.md
+└── referance.md
+```
+
+---
+
+## DevOps Takeaway
+
+Production troubleshooting usually follows:
+
+```text
+Observe → Investigate → Identify Root Cause → Fix → Verify
+```
+
+This day was a practical introduction to that workflow.
+
+---
+
+## Tech Used
+
+- Linux (Ubuntu)
+- systemd
+- journalctl
+- syslog
+- AWS EC2
+- AWS IAM
+- AWS Systems Manager (SSM)
+
+---
+
+## Author
+
+**Preetham**
+Building consistency through #90DaysOfDevOps
