@@ -1,93 +1,156 @@
 # Day 06 – Linux Fundamentals: Read and Write Text Files
 
-## Task
-This is a **continuation of Day 05**, but much simpler.
+## Overview
 
-Today’s goal is to **practice basic file read/write** using only fundamental commands.
+Day 06 focused on practicing basic Linux file input/output operations using fundamental commands.
 
-You will create a small text file and practice:
-- Creating a file
-- Writing text to a file
-- Appending new lines
-- Reading the file back
+The goal was to understand how to:
 
-Keep it basic and repeatable.
+- Create files
+- Write content into files
+- Append new content
+- Read complete or partial file contents
+- Use Linux utilities for efficient text handling
 
----
-
-## Expected Output
-By the end of today, you should have:
-
-- the new created files
-- A markdown file named:
-  `day-06-file-io-practice.md`
-
-or
-
-- A hand written practice note (Recommended)
-
-Your note should include the commands you ran and what they did.
+These are essential day-to-day skills for log inspection, configuration management, and troubleshooting in DevOps environments.
 
 ---
 
-## Guidelines
-Follow these rules while creating your practice note:
+## Objectives Completed
 
-- Create a file named `notes.txt`
-- Write 3 lines into the file using **redirection** (`>` and `>>`)
-- Use **`cat`** to read the full file
-- Use **`head`** and **`tail`** to read parts of the file
-- Use **`tee`** once to write and display at the same time
-- Keep it short (8–12 lines total in the file)
-
-Suggested command flow:
-1. `touch notes.txt`
-2. `echo "Line 1" > notes.txt`
-3. `echo "Line 2" >> notes.txt`
-4. `echo "Line 3" | tee -a notes.txt`
-5. `cat notes.txt`
-6. `head -n 2 notes.txt`
-7. `tail -n 2 notes.txt`
+- Created a file using `touch`
+- Wrote content using `>`
+- Appended content using `>>`
+- Used `tee -a` to write and display output simultaneously
+- Read file content using `cat`
+- Inspected first lines using `head`
+- Inspected last lines using `tail`
+- Counted lines using `wc -l`
 
 ---
 
-## Resources
-Use these docs to understand the commands:
+## Commands Practiced
 
-- `touch` (create an empty file)
-- `cat` (read full file)
-- `head` and `tail` (read parts of a file)
-- `tee` (write and display at the same time)
+```bash
+touch notes.txt
+echo "Line 1 - Learning file operations" > notes.txt
+echo "Line 2 - Using append operator" >> notes.txt
+echo "Line 3 - Using tee command" | tee -a notes.txt
 
----
-
-## Why This Matters for DevOps
-Reading and writing files is a daily task in DevOps.
-
-Logs, configs, and scripts are all text files.
-If you can handle files quickly, you can debug and automate faster.
+cat notes.txt
+head -n 2 notes.txt
+tail -n 2 notes.txt
+wc -l notes.txt
+```
 
 ---
 
-## Submission
-1. Fork this `90DaysOfDevOps` repository
-2. Navigate to the `2026/day-06/` folder
-3. Add your `day-06-file-io-practice.md` file
-4. Commit and push your changes to your fork
+## Key Learnings
+
+### `>`
+
+Overwrites file content.
+
+Example:
+
+```bash
+echo "Hello" > file.txt
+```
+
+Output:
+
+```text
+Hello
+```
 
 ---
 
-## Learn in Public
-Share your Day 06 progress on LinkedIn:
+### `>>`
 
-- Post 2–3 lines on what you learned about file read/write
-- Share one command you will use often
-- Optional: screenshot of your notes
+Appends content without deleting existing data.
 
-Use hashtags:
-#90DaysOfDevOps
-#DevOpsKaJosh
-#TrainWithShubham
+Example:
 
-Happy Learning
-**TrainWithShubham**
+```bash
+echo "World" >> file.txt
+```
+
+Output:
+
+```text
+Hello
+World
+```
+
+---
+
+### `tee -a`
+
+Appends content and prints output to terminal simultaneously.
+
+Example:
+
+```bash
+echo "New line" | tee -a file.txt
+```
+
+---
+
+### `cat`
+
+Displays full file content.
+
+---
+
+### `head`
+
+Displays first few lines.
+
+---
+
+### `tail`
+
+Displays last few lines.
+
+---
+
+## Real DevOps Usage
+
+These commands are heavily used for:
+
+- Viewing application logs
+- Appending log entries
+- Updating configuration files
+- Reading service outputs
+- Quick debugging in Linux servers
+- Monitoring logs with `tail -f`
+
+Example:
+
+```bash
+tail -f /var/log/syslog
+```
+
+---
+
+## Project Files
+
+```text
+day-06/
+├── screenshots/
+├── day-06-file-io-practice.md
+├── referance.md
+└── README.md
+```
+
+---
+
+## Outcome
+
+This practice strengthened my Linux fundamentals around file handling and text operations, which are core skills required in DevOps for automation, troubleshooting, and system administration.
+
+---
+
+## Tags
+
+#Linux #DevOps #90DaysOfDevOps #FileHandling #CLI #CloudEngineering
