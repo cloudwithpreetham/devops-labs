@@ -1,256 +1,165 @@
 # Day 07 – Linux File System Hierarchy & Scenario-Based Practice
 
-## Task
-Today's goal is to **understand where things live in Linux** and **practice troubleshooting like a DevOps engineer**.
+## Overview
 
-You will create notes covering:
-- Linux File System Hierarchy (the most important directories)
-- Practice solving real-world scenarios step by step
+Day 07 focused on understanding the **Linux File System Hierarchy (FHS)** and applying Linux fundamentals through **real-world troubleshooting scenarios**.
 
-This consolidates your Linux fundamentals and prepares you for real-world troubleshooting.
+This practice helped strengthen my understanding of:
 
----
-
-## Expected Output
-By the end of today, you should have:
-
-- A markdown file named:
-  `day-07-linux-fs-and-scenarios.md`
-
-or
-
-- A hand written set of notes (Recommended)
-
-Your notes should have two sections: File System Hierarchy and Scenario Practice.
+- Where important files and directories live in Linux
+- How to troubleshoot system services
+- How to inspect logs using `journalctl`
+- How to identify CPU-heavy processes
+- How Linux file permissions affect execution
+- How to approach incidents step-by-step like a DevOps engineer
 
 ---
 
-## Guidelines
+## Topics Covered
 
-### Part 1: Linux File System Hierarchy (30 minutes)
+### 1) Linux File System Hierarchy
 
-Document the purpose of these **essential** directories:
+Studied essential directories and their practical use cases:
 
-**Core Directories (Must Know):**
-- `/` (root) - The starting point of everything
-- `/home` - User home directories
-- `/root` - Root user's home directory
-- `/etc` - Configuration files
-- `/var/log` - Log files (very important for DevOps!)
-- `/tmp` - Temporary files
+| Directory  | Purpose                         |
+| ---------- | ------------------------------- |
+| `/`        | Root of the Linux filesystem    |
+| `/home`    | User home directories           |
+| `/root`    | Root user's home directory      |
+| `/etc`     | Configuration files             |
+| `/var/log` | System & application logs       |
+| `/tmp`     | Temporary files                 |
+| `/bin`     | Essential binaries              |
+| `/usr/bin` | User command binaries           |
+| `/opt`     | Optional / third-party software |
 
-**Additional Directories (Good to Know):**
-- `/bin` - Essential command binaries
-- `/usr/bin` - User command binaries
-- `/opt` - Optional/third-party applications
+---
 
-For each directory:
-- Write 1-2 lines explaining what it contains
-- Run `ls -l <directory>` and note 1-2 files/folders you see
-- Write one sentence: "I would use this when..."
+## Scenario-Based Troubleshooting
 
-**Hands-on task:**
+### Service Not Starting
+
+Commands practiced:
+
 ```bash
-# Find the largest log file in /var/log
-du -sh /var/log/* 2>/dev/null | sort -h | tail -5
-
-# Look at a config file in /etc
-cat /etc/hostname
-
-# Check your home directory
-ls -la ~
+sudo systemctl status <service>
+systemctl is-enabled <service>
+journalctl -u <service> -n 50
+sudo systemctl restart <service>
 ```
+
+Learned:
+
+- How to inspect service health
+- How to verify boot startup
+- How to read service logs
 
 ---
 
-### Part 2: Scenario-Based Practice (40 minutes)
+### High CPU Usage Investigation
 
-**Important:** Focus on understanding the **troubleshooting flow**, not memorizing commands. Use the hints!
+Commands practiced:
 
----
-
-#### SOLVED EXAMPLE: Understanding How to Approach Scenarios
-
-**Example Scenario: Check if a service is running**
-```
-Question: How do you check if the 'nginx' service is running?
-```
-
-**My Solution (Step by step):**
-
-**Step 1:** Check service status
 ```bash
-systemctl status nginx
+top
+ps aux --sort=-%cpu | head -10
 ```
-**Why this command?** It shows if the service is active, failed, or stopped
 
-**Step 2:** If service is not found, list all services
+Learned:
+
+- How to identify CPU-consuming processes
+- How to interpret system load
+- How to inspect process IDs (PID)
+
+---
+
+### Service Logs Analysis
+
+Commands practiced:
+
 ```bash
-systemctl list-units --type=service
+journalctl -u docker -n 50
+journalctl -u docker -f
+journalctl -xe
 ```
-**Why this command?** To see what services exist on the system
 
-**Step 3:** Check if service is enabled on boot
+Learned:
+
+- How to inspect historical logs
+- How to follow logs in real time
+- How journald helps in troubleshooting
+
+---
+
+### File Permission Troubleshooting
+
+Commands practiced:
+
 ```bash
-systemctl is-enabled nginx
+ls -l
+chmod +x backup.sh
+./backup.sh
 ```
-**Why this command?** To know if it will start automatically after reboot
 
-**What I learned:** Always check status first, then investigate based on what you see.
+Learned:
+
+- Execute permission is required for scripts
+- How Linux permissions work
+- Safe permission modification practices
 
 ---
 
-Now try these scenarios yourself:
+## Real Hands-on Work Completed
+
+Successfully practiced:
+
+- SSH service inspection
+- SSH restart using sudo privileges
+- Docker installation & service validation
+- Docker log analysis
+- CPU monitoring
+- Script permission fixing
+- Service discovery using systemctl
+- Advanced log review using journalctl
 
 ---
 
-**Scenario 1: Service Not Starting** 
-```
-A web application service called 'myapp' failed to start after a server reboot.
-What commands would you run to diagnose the issue?
-Write at least 4 commands in order.
-```
+## Files in This Folder
 
-**Hint:**
-- First check: Is the service running or failed?
-- Then check: What do the logs say?
-- Finally check: Is it enabled to start on boot?
-
-**Commands to explore:** `systemctl status myapp`, `systemctl is-enabled myapp`, `journalctl -u myapp -n 50`
-
-**Resource:** Review Day 04 (Process and Services practice)
-
-**Template for your answer:**
-```
-Step 1: [command]
-Why: [one line explanation]
-
-Step 2: [command]
-Why: [one line explanation]
-
-...
+```text
+day-07/
+├── screenshots/
+├── day-07-linux-fs-and-scenarios.md
+├── referance.md
+└── README.md
 ```
 
 ---
 
-**Scenario 2: High CPU Usage** 
-```
-Your manager reports that the application server is slow.
-You SSH into the server. What commands would you run to identify
-which process is using high CPU?
-```
+## Key Takeaways
 
-**Hint:**
-- Use a command that shows **live** CPU usage
-- Look for processes sorted by CPU percentage
-- Note the PID (Process ID) of the top process
-
-**Commands to explore:** `top` (press 'q' to quit), `htop`, `ps aux --sort=-%cpu | head -10`
-
-**Resource:** Review Day 05 (Troubleshooting Drill - CPU & Memory section)
+- Logs are one of the most important troubleshooting tools
+- Services may be active but disabled on boot
+- Permissions are a common source of script failures
+- Step-by-step troubleshooting is better than random debugging
+- Understanding Linux internals is foundational for DevOps
 
 ---
 
-**Scenario 3: Finding Service Logs** 
-```
-A developer asks: "Where are the logs for the 'docker' service?"
-The service is managed by systemd.
-What commands would you use?
-```
+## Skills Practiced
 
-**Hint:**
-- systemd services → logs are in journald
-- Command pattern: `journalctl -u <service-name>`
-- Use -n flag to limit number of lines
-- Use -f flag to follow logs in real-time (like tail -f)
-
-**Commands to explore:**
-```bash
-# Check service status first
-systemctl status ssh
-
-# View last 50 lines of logs
-journalctl -u ssh -n 50
-
-# Follow logs in real-time
-journalctl -u ssh -f
-```
-
-**Resource:** Review Day 04 (Process and Services - Log checks section)
+- Linux Administration
+- Service Management
+- Log Analysis
+- CPU Monitoring
+- File Permissions
+- Troubleshooting Mindset
+- DevOps Fundamentals
 
 ---
 
-**Scenario 4: File Permissions Issue** 
-```
-A script at /home/user/backup.sh is not executing.
-When you run it: ./backup.sh
-You get: "Permission denied"
+## Progress
 
-What commands would you use to fix this?
-```
+**90 Days of DevOps – Day 07 Completed**
 
-**Hint:**
-- First: Check what permissions the file has
-- Understand: Files need 'x' (execute) permission to run
-- Fix: Add execute permission with chmod
-
-**Step-by-step solution structure:**
-```
-Step 1: Check current permissions
-Command: ls -l /home/user/backup.sh
-Look for: -rw-r--r-- (notice no 'x' = not executable)
-
-Step 2: Add execute permission
-Command: chmod +x /home/user/backup.sh
-
-Step 3: Verify it worked
-Command: ls -l /home/user/backup.sh
-Look for: -rwxr-xr-x (notice 'x' = executable)
-
-Step 4: Try running it
-Command: ./backup.sh
-```
-
-**Resource:** Review Day 02 (File Permissions and Users Management)
-
----
-
-## Why This Matters for DevOps
-Understanding the file system is critical for:
-- Knowing where to find logs, configs, and binaries
-- Troubleshooting deployment issues
-- Writing automation scripts that work across systems
-
-Scenario-based practice prepares you for:
-- Real production incidents
-- DevOps interviews
-- On-call troubleshooting under pressure
-
-These are questions you **will** face in interviews and during real incidents.
-
----
-
-## Submission
-1. Fork this `90DaysOfDevOps` repository
-2. Navigate to the `2026/day-07/` folder
-3. Add your `day-07-linux-fs-and-scenarios.md` file
-4. Commit and push your changes to your fork
-
----
-
-## Learn in Public
-Share your Day 07 progress on LinkedIn:
-
-- Post 2–3 lines on what you learned about Linux file system
-- Share one scenario you found challenging and how you solved it
-- Optional: screenshot of your notes
-
-Use hashtags:
-```
-#90DaysOfDevOps
-#DevOpsKaJosh
-#TrainWithShubham
-```
-
-Happy Learning
-**TrainWithShubham**
+Building Linux fundamentals one day at a time.
