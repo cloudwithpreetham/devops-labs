@@ -1,146 +1,154 @@
 # Day 08 – Cloud Server Setup: Docker, Nginx & Web Deployment
 
-## Task
-Today's goal is to **deploy a real web server on the cloud** and learn practical server management.
+## Overview
 
-You will:
-- Launch a cloud instance (AWS EC2 or Utho)
-- Connect via SSH
-- Install Nginx
-- Configure security groups for web access (port 80 by default for nginx)
-- Extract and save logs to a file
-- Verify your webpage is accessible from the internet
+Day 08 focused on deploying and managing a real cloud server on AWS EC2, installing Docker and Nginx, configuring network access, and validating deployment through logs and browser testing.
 
-This is real DevOps work - exactly what you'll do in production.
+This hands-on exercise introduced practical DevOps concepts around infrastructure provisioning, service deployment, cloud networking, and observability.
 
 ---
 
-## Expected Output
-By the end of today, you should have:
+## Objectives
 
-1. A markdown file named: `day-08-cloud-deployment.md`
-2. Screenshots showing:
-   - SSH connection to your server
-   - Nginx welcome page accessible from browser
-   - Log file contents
-3. The log file: `nginx-logs.txt`
-
----
-
-## Prerequisites
-- AWS account (Free Tier) OR Utho account
-- Basic understanding of Linux commands (Days 1-7)
-- SSH client (Terminal on Mac/Linux, PuTTY on Windows)
+- Launch a cloud VM using AWS EC2
+- Connect securely using SSH
+- Install and configure Docker
+- Install and manage Nginx
+- Configure Security Group rules for HTTP access
+- Validate service availability from the internet
+- Extract and analyze Nginx access logs
 
 ---
 
-## Guidelines
+## Project Structure
 
-### Part 1: Launch Cloud Instance & SSH Access (15 minutes)
-
-**Step 1: Create a Cloud Instance**
-
-
-**Step 2: Connect via SSH**
-
-
----
-
-### Part 2: Install Docker & Nginx (20 minutes)
-
-**Step 1: Update System**
-
-
-**Step 3: Install Nginx**
-
-**Verify Nginx is running:**
-
----
-
-### Part 3: Security Group Configuration (10 minutes)
-
-**Test Web Access:**
-Open browser and visit: `http://<your-instance-ip>`
-
-You should see the **Nginx welcome page**!
-
-📸 **Screenshot this page** - you'll need it for submission
-
----
-
-### Part 4: Extract Nginx Logs (15 minutes)
-
-**Step 1: View Nginx Logs**
-
-**Step 2: Save Logs to File**
-
-**Step 3: Download Log File to Your Local Machine**
-```bash
-# On your local machine (new terminal window)
-# For AWS:
-scp -i your-key.pem ubuntu@<your-instance-ip>:~/nginx-logs.txt .
-
-# For Utho:
-scp root@<your-instance-ip>:~/nginx-logs.txt .
+```text
+day-08/
+├── screenshots/
+│   ├── ssh-connection.png
+│   ├── system-update.png
+│   ├── docker-installation.png
+│   ├── nginx-running.png
+│   ├── nginx-webpage.png
+│   └── nginx-access-logs.png
+├── day-08-cloud-deployment.md
+├── nginx-logs.txt
+├── reference.md
+└── README.md
 ```
 
 ---
 
+## Tech Stack
 
-## Documentation Template
+- AWS EC2 (Ubuntu 24.04 LTS)
+- Linux
+- Docker
+- Nginx
+- SSH
+- AWS Security Groups
 
-Create your `day-08-cloud-deployment.md` with this structure:
+---
 
-## Commands Used
-[List the key commands you used]
+## Key Commands Used
 
-## Challenges Faced
-[Describe any issues and how you solved them]
+### Connect to Server
+
+```bash
+ssh -i linux-server-key.pem ubuntu@<public-ip>
+```
+
+### Update Packages
+
+```bash
+sudo apt update && sudo apt upgrade -y
+```
+
+### Install Docker
+
+```bash
+sudo apt install docker.io -y
+sudo systemctl start docker
+sudo systemctl enable docker
+docker --version
+```
+
+### Install Nginx
+
+```bash
+sudo apt install nginx -y
+sudo systemctl start nginx
+sudo systemctl enable nginx
+sudo systemctl status nginx
+```
+
+### Verify Service
+
+```bash
+curl http://localhost
+```
+
+### Check Listening Port
+
+```bash
+sudo ss -tulnp | grep 80
+```
+
+### View Logs
+
+```bash
+sudo cat /var/log/nginx/access.log
+```
+
+---
+
+## Challenges Solved
+
+### Network Timeout Issue
+
+Initially, the public IP was unreachable.
+
+**Root Cause**
+
+- HTTP (Port 80) was not allowed in the AWS Security Group.
+
+**Fix**
+
+- Added inbound HTTP rule:
+  - Protocol: TCP
+  - Port: 80
+  - Source: 0.0.0.0/0
+
+**Result**
+
+- Nginx became accessible publicly from browser.
+
+---
 
 ## What I Learned
-[3-5 bullet points of key learnings]
+
+- How to provision and access cloud servers
+- Installing and managing Linux services
+- Docker setup on cloud VMs
+- Cloud firewall / Security Group basics
+- Debugging service vs network problems
+- Reading and interpreting access logs
 
 ---
 
+## DevOps Concepts Practiced
 
-## Why This Matters for DevOps
-
-This exercise teaches you:
-- **Cloud infrastructure provisioning** - launching and configuring servers
-- **Remote server management** - SSH, security, access control
-- **Service deployment** - installing and running applications
-- **Log management** - accessing and analyzing logs
-- **Security** - configuring firewalls and security groups
-
-These are core skills for any DevOps engineer working in production.
+- Infrastructure provisioning
+- Remote server administration
+- Service deployment
+- Networking & security
+- Monitoring through logs
+- Troubleshooting methodology
 
 ---
 
+## Outcome
 
-## Submission
-1. Fork this `90DaysOfDevOps` repository
-2. Navigate to the `2026/day-08/` folder
-3. Add your `day-08-cloud-deployment.md` file
-4. Add your `nginx-logs.txt` file
-5. Add screenshots (name them: `ssh-connection.png`, `nginx-webpage.png`, `docker-nginx.png`)
-6. Commit and push your changes to your fork
+Successfully deployed a public-facing Nginx server on AWS EC2, validated access from the browser, and captured access logs for observability.
 
----
-
-## Learn in Public
-Share your Day 08 progress on LinkedIn:
-
-- Post 2-3 lines on deploying your first cloud server
-- Share screenshot of your Nginx webpage
-- Mention one challenge you faced and solved
-- Optional: Share your instance IP (if comfortable)
-
-Use hashtags:
-```
-#90DaysOfDevOps
-#DevOpsKaJosh
-#TrainWithShubham
-```
-
-Happy Learning
-**TrainWithShubham**
+This was a practical introduction to real-world server deployment workflows used in DevOps environments.
