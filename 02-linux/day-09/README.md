@@ -1,150 +1,214 @@
-# Day 09 – Linux User & Group Management Challenge
+# Day 09 – Linux User & Group Management
 
-## Task
-Today's goal is to **practice user and group management** by completing hands-on challenges.
+## Overview
 
-Figure out how to:
-- Create users and set passwords
-- Create groups and assign users
-- Set up shared directories with group permissions
+Day 09 focused on **Linux user and group administration**, a fundamental skill for DevOps engineers managing multi-user systems, shared resources, and access control.
 
-Use what you learned from Days 1-7 to find the right commands!
+This hands-on challenge covered:
 
----
-
-## Expected Output
-- A markdown file: `day-09-user-management.md`
-- Screenshots of command outputs
-- List of commands used
+- Creating Linux users with home directories
+- Setting passwords securely
+- Creating and managing groups
+- Assigning users to multiple groups
+- Configuring shared directories with group permissions
+- Troubleshooting permission-related issues
 
 ---
 
-## Challenge Tasks
+## Objectives
 
-### Task 1: Create Users (20 minutes)
+The goal of this challenge was to understand how Linux handles:
 
-Create three users with home directories and passwords:
+- **Users** → system identities for login and process ownership
+- **Groups** → logical collections of users for access control
+- **Permissions** → read / write / execute access management
+- **Ownership** → who controls files and directories
+
+These concepts are critical in:
+
+- Server administration
+- CI/CD runner access
+- Shared deployment environments
+- Log file management
+- Application permission troubleshooting
+
+---
+
+## Tasks Completed
+
+### 1) User Creation
+
+Created users:
+
 - `tokyo`
 - `berlin`
 - `professor`
+- `nairobi`
 
-**Verify:** Check `/etc/passwd` and `/home/` directory
+Verified with:
+
+```bash
+cat /etc/passwd
+ls /home/
+```
 
 ---
 
-### Task 2: Create Groups (10 minutes)
+### 2) Group Creation
 
-Create two groups:
+Created groups:
+
 - `developers`
 - `admins`
+- `project-team`
 
-**Verify:** Check `/etc/group`
+Verified with:
 
----
-
-### Task 3: Assign to Groups (15 minutes)
-
-Assign users:
-- `tokyo` → `developers`
-- `berlin` → `developers` + `admins` (both groups)
-- `professor` → `admins`
-
-**Verify:** Use appropriate command to check group membership
-
----
-
-### Task 4: Shared Directory (20 minutes)
-
-1. Create directory: `/opt/dev-project`
-2. Set group owner to `developers`
-3. Set permissions to `775` (rwxrwxr-x)
-4. Test by creating files as `tokyo` and `berlin`
-
-**Verify:** Check permissions and test file creation
-
----
-
-### Task 5: Team Workspace (20 minutes)
-
-1. Create user `nairobi` with home directory
-2. Create group `project-team`
-3. Add `nairobi` and `tokyo` to `project-team`
-4. Create `/opt/team-workspace` directory
-5. Set group to `project-team`, permissions to `775`
-6. Test by creating file as `nairobi`
-
----
-
-## Hints
-
-**Stuck? Try these commands:**
-- User: `useradd`, `passwd`, `usermod`
-- Group: `groupadd`, `groups`
-- Permissions: `chgrp`, `chmod`
-- Test: `sudo -u username command`
-
-**Tip:** Use `-m` flag with useradd for home directory, `-aG` for adding to groups
-
----
-
-## Documentation
-
-Create `day-09-user-management.md`:
-
-```markdown
-# Day 09 Challenge
-
-## Users & Groups Created
-- Users: tokyo, berlin, professor, nairobi
-- Groups: developers, admins, project-team
-
-## Group Assignments
-[List who is in which groups]
-
-## Directories Created
-[List directories with permissions]
-
-## Commands Used
-[Your commands here]
-
-## What I Learned
-[3 key points]
+```bash
+cat /etc/group
 ```
 
 ---
 
+### 3) Group Assignment
 
-## Troubleshooting
+Configured memberships:
 
-**Permission denied?** Use `sudo`
+| User      | Groups                   |
+| --------- | ------------------------ |
+| tokyo     | developers, project-team |
+| berlin    | developers, admins       |
+| professor | admins                   |
+| nairobi   | project-team             |
 
-**User can't access directory?**
-- Check group: `groups username`
-- Check permissions: `ls -ld /path`
+Verified with:
+
+```bash
+groups <username>
+```
 
 ---
 
-## Submission
-1. Fork this `90DaysOfDevOps` repository
-2. Navigate to `2026/day-09/` folder
-3. Add your `day-09-user-management.md` with screenshots
-4. Commit and push
+### 4) Shared Directory Permissions
+
+Configured:
+
+```text
+/opt/dev-project
+/opt/team-workspace
+```
+
+Permissions:
+
+```bash
+775
+```
+
+Ownership:
+
+- Group ownership assigned correctly
+- Group members allowed collaborative access
 
 ---
 
-## Learn in Public
-Share your Day 09 progress on LinkedIn:
+### 5) Troubleshooting & Fixes
 
-- Post about completing the user management challenge
-- Share one thing you figured out
-- Mention real-world DevOps use
+During testing, encountered:
 
-Use hashtags:
+## Permission Denied
+
+Cause:
+
+- Incorrect directory permissions (`754` / `755`)
+
+Fix:
+
+```bash
+chmod 775 <directory>
 ```
-#90DaysOfDevOps
-#DevOpsKaJosh
-#TrainWithShubham
+
+---
+
+## Shell Redirection Issue
+
+Problem:
+
+```bash
+sudo -u user echo "text" >> file
 ```
 
-Happy Learning
-**TrainWithShubham**
+Did not work as expected.
+
+Reason:
+
+- `>>` is handled by shell, not `sudo`
+
+Correct fix:
+
+```bash
+echo "text" | sudo -u user tee -a file
+```
+
+This is an important Linux behavior for automation and scripting.
+
+---
+
+## Project Structure
+
+```text
+day-09/
+├── README.md
+├── day-09-user-management.md
+├── referance.md
+└── screenshots/
+```
+
+---
+
+## Key Learnings
+
+- Difference between `usermod -G` and `usermod -aG`
+- Importance of correct permissions (`775`)
+- Group ownership with `chgrp`
+- Shell redirection behavior with privilege escalation
+- Real-world access control debugging
+
+---
+
+## DevOps Relevance
+
+Linux permissions directly affect:
+
+- Deployments
+- Build pipelines
+- Shared workspaces
+- SSH access
+- Container volume mounts
+- Application logging
+- Security hardening
+
+Understanding this deeply prevents production incidents.
+
+---
+
+## Commands Practiced
+
+```bash
+useradd
+passwd
+groupadd
+usermod
+groups
+mkdir
+chgrp
+chmod
+touch
+tee
+ls -ld
+```
+
+---
+
+## Outcome
+
+Completed a practical Linux user & group management lab and gained hands-on experience with **access control, permissions, and troubleshooting**, which are essential skills for DevOps and Cloud Engineering.
