@@ -1,117 +1,207 @@
-# Day 10 – File Permissions & File Operations Challenge
+# Day 10 – Linux File Permissions & File Operations
 
-## Task
-Master file permissions and basic file operations in Linux.
+## Overview
 
-- Create and read files using `touch`, `cat`, `vim`
-- Understand and modify permissions using `chmod`
+Day 10 focused on one of the most important Linux fundamentals for DevOps Engineers: **file permissions and file operations**.
 
----
+In Linux, every file and directory has permissions that control who can:
 
-## Expected Output
-- A markdown file: `day-10-file-permissions.md`
-- Screenshots showing permission changes
+- Read (`r`)
+- Write (`w`)
+- Execute (`x`)
 
----
+Understanding permissions is critical for:
 
-## Challenge Tasks
+- Running shell scripts
+- Securing configuration files
+- Managing shared directories
+- Preventing unauthorized access
+- Troubleshooting "Permission denied" errors
 
-### Task 1: Create Files (10 minutes)
-
-1. Create empty file `devops.txt` using `touch`
-2. Create `notes.txt` with some content using `cat` or `echo`
-3. Create `script.sh` using `vim` with content: `echo "Hello DevOps"`
-
-**Verify:** `ls -l` to see permissions
+This hands-on challenge helped reinforce practical Linux permission management.
 
 ---
 
-### Task 2: Read Files (10 minutes)
+## Objectives
 
-1. Read `notes.txt` using `cat`
-2. View `script.sh` in vim read-only mode
-3. Display first 5 lines of `/etc/passwd` using `head`
-4. Display last 5 lines of `/etc/passwd` using `tail`
+The goal of this challenge was to:
 
----
-
-### Task 3: Understand Permissions (10 minutes)
-
-Format: `rwxrwxrwx` (owner-group-others)
-- `r` = read (4), `w` = write (2), `x` = execute (1)
-
-Check your files: `ls -l devops.txt notes.txt script.sh`
-
-Answer: What are current permissions? Who can read/write/execute?
+- Create files using Linux commands
+- Read file contents using CLI tools
+- Understand Linux permission models
+- Modify permissions using `chmod`
+- Execute shell scripts
+- Test permission restrictions
+- Observe Linux security behavior
 
 ---
 
-### Task 4: Modify Permissions (20 minutes)
+## Hands-on Tasks Completed
 
-1. Make `script.sh` executable → run it with `./script.sh`
-2. Set `devops.txt` to read-only (remove write for all)
-3. Set `notes.txt` to `640` (owner: rw, group: r, others: none)
-4. Create directory `project/` with permissions `755`
+### 1) File Creation
 
-**Verify:** `ls -l` after each change
+Created multiple files for practice:
 
----
+- `devops.txt`
+- `notes.txt`
+- `script.sh`
 
-### Task 5: Test Permissions (10 minutes)
+Commands used:
 
-1. Try writing to a read-only file - what happens?
-2. Try executing a file without execute permission
-3. Document the error messages
-
----
-
-## Hints
-
-- Create: `touch`, `cat > file`, `vim file`
-- Read: `cat`, `head -n`, `tail -n`
-- Permissions: `chmod +x`, `chmod -w`, `chmod 755`
-
----
-
-## Documentation
-
-Create `day-10-file-permissions.md`:
-
-```markdown
-# Day 10 Challenge
-
-## Files Created
-[list files]
-
-## Permission Changes
-[before/after for each file]
-
-## Commands Used
-[your commands]
-
-## What I Learned
-[3 key points]
+```bash id="4yp9xn"
+touch devops.txt
+echo "This is day-10" >> notes.txt
+vim script.sh
 ```
 
 ---
 
-## Submission
-1. Navigate to `2026/day-10/` folder
-2. Add `day-10-file-permissions.md` with screenshots
-3. Commit and push
+### 2) File Reading
+
+Practiced reading files using:
+
+```bash id="3y5s5n"
+cat notes.txt
+head -n 5 /etc/passwd
+tail -n 5 /etc/passwd
+vim -R script.sh
+```
+
+Learned how Linux stores user information in `/etc/passwd`.
 
 ---
 
-## Learn in Public
+### 3) Permission Analysis
 
-Share on LinkedIn about mastering file permissions.
+Inspected file permissions using:
 
-Use hashtags:
-```
-#90DaysOfDevOps
-#DevOpsKaJosh
-#TrainWithShubham
+```bash id="ow73w7"
+ls -l
 ```
 
-Happy Learning
-**TrainWithShubham**
+Permission format learned:
+
+```id="lwht0m"
+-rwxrwxrwx
+```
+
+Meaning:
+
+- First character → file type
+- Next 3 → owner permissions
+- Next 3 → group permissions
+- Last 3 → others permissions
+
+---
+
+### 4) Permission Changes
+
+Modified permissions using:
+
+```bash id="cf5o1y"
+chmod +x script.sh
+chmod -wx devops.txt
+chmod 640 notes.txt
+chmod 755 project
+```
+
+Examples learned:
+
+| Permission | Meaning                                |
+| ---------- | -------------------------------------- |
+| 755        | Owner full access, others read/execute |
+| 644        | Owner write, others read               |
+| 640        | Owner read/write, group read only      |
+| 600        | Owner only access                      |
+
+---
+
+### 5) Permission Testing
+
+Tested Linux access controls:
+
+- Tried writing to read-only files
+- Tried executing non-executable scripts
+- Observed **Permission denied** errors
+
+This demonstrated how Linux enforces file security.
+
+---
+
+## Project Structure
+
+```id="w13m88"
+day-10/
+├── screenshots/
+├── day-10-file-permissions.md
+├── reference.md
+└── README.md
+```
+
+---
+
+## Key Learnings
+
+- Linux permissions are fundamental to system security
+- `chmod` supports symbolic and numeric permission modes
+- Execute permission is required to run scripts
+- Directories require execute permission for access/traversal
+- Incorrect permissions can create security vulnerabilities
+
+---
+
+## Real DevOps Relevance
+
+File permissions are used daily in DevOps for:
+
+- Deployment scripts
+- CI/CD pipelines
+- Secret management
+- SSH key protection
+- Config file hardening
+- Container filesystem security
+
+Examples:
+
+```bash id="x2n0cf"
+chmod 600 ~/.ssh/id_rsa
+chmod +x deploy.sh
+chmod 640 app.env
+chmod 755 scripts/
+```
+
+---
+
+## Commands Practiced
+
+```bash id="pimjdp"
+touch
+cat
+vim
+head
+tail
+ls -l
+chmod
+mkdir
+```
+
+---
+
+## Outcome
+
+Successfully completed:
+
+- File creation
+- File reading
+- Permission inspection
+- Permission modification
+- Permission testing
+- Security understanding
+
+Strong Linux fundamentals are being built step by step.
+
+---
+
+**#90DaysOfDevOps**
+**#DevOpsKaJosh**
+**#TrainWithShubham**
