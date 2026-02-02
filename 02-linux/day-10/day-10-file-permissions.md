@@ -6,6 +6,10 @@
 - notes.txt
 - script.sh
 
+### Screenshot
+
+![Task 1 - Create Files](screenshots/1_task1.png)
+
 ---
 
 ## Permission Changes
@@ -32,6 +36,14 @@
 
 - Permission: drwxr-xr-x (755)
 
+### Screenshots
+
+![Task 3 - Understand Permissions](screenshots/4_task3.png)
+
+![Task 4 - Modify Permissions](screenshots/5_task4.png)
+
+![Task 4 - Fix](screenshots/7_task4_fix.png)
+
 ---
 
 ## Commands Used
@@ -53,6 +65,12 @@ mkdir project
 chmod 755 project
 ```
 
+### Screenshots
+
+![Task 2 - Read Files (1)](screenshots/2_task2.png)
+
+![Task 2 - Read Files (2)](screenshots/3_task2.png)
+
 ---
 
 ## Key Learnings
@@ -67,3 +85,7 @@ chmod 755 project
 
 - Writing to read-only file → Permission denied
 - Executing without execute permission → Permission denied
+
+### Screenshot
+
+![Task 5 - Test Permissions](screenshots/6_task5.png)
