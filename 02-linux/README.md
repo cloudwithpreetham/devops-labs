@@ -1,152 +1,124 @@
-# DevOps Linux Labs (Day 02–13)
+# Linux for DevOps – Hands-on Labs
 
-## Overview
+This directory contains my hands-on Linux practice as part of my **90 Days of DevOps** journey.
+The focus of this phase was to build strong Linux fundamentals—the backbone of DevOps, Cloud, and Site Reliability Engineering.
 
-This repository documents my hands-on DevOps learning journey covering Linux fundamentals, system administration, and cloud-based practices on AWS EC2.
-
-The goal of these labs is to build strong foundational skills required for real-world DevOps roles.
-
----
-
-## What I Covered
-
-### Day 02 – Getting Started with Linux
-
-- Basic Linux commands
-- Navigation and file handling
-
-### Day 03 – Linux Commands + Nginx Setup
-
-- Practiced core Linux commands
-- Installed and configured Nginx
-
-### Day 04 – Processes, Services & AWS SSM
-
-- Managed processes and services
-- Troubleshooting using AWS Systems Manager (SSM)
-
-### Day 05 – Linux Troubleshooting Runbook
-
-- CPU, Memory, Disk troubleshooting
-- Created a basic troubleshooting guide
-
-### Day 06 – File Operations
-
-- Read/write operations
-- Working with files and directories
-
-### Day 07 – Filesystem & Structure
-
-- Linux filesystem hierarchy
-- Scenario-based troubleshooting
-
-### Day 08 – Cloud Deployment
-
-- Application deployment on cloud
-- Basic infrastructure setup
-
-### Day 09 – User & Group Management
-
-- Created users and groups
-- Managed permissions
-
-### Day 10 – File Permissions
-
-- chmod, chown, file operations
-- Practical permission scenarios
-
-### Day 11 – Ownership & Security
-
-- chown, chgrp
-- Recursive permission handling
-
-### Day 12 – Revision Day
-
-- Reviewed all Linux fundamentals
-- Strengthened weak areas
-
-### Day 13 – LVM (Logical Volume Management)
-
-- Created Physical Volumes, Volume Groups, Logical Volumes
-- Mounted storage and extended volumes
-- Practiced real-world storage management on EC2
+From basic Linux architecture to storage management with LVM, each day included practical commands, troubleshooting exercises, and documentation.
 
 ---
 
-## Key Skills Gained
+## Learning Objectives
 
-- Linux command-line proficiency
-- File permissions and ownership management
-- System troubleshooting (CPU, memory, disk)
-- Process and service management
-- User and group administration
-- Basic cloud operations on AWS EC2
-- Storage management using LVM
+Through these labs, I focused on:
+
+- Understanding Linux architecture and core components
+- Mastering essential Linux commands
+- Managing processes and services
+- Troubleshooting CPU, memory, disk, and logs
+- Working with files, directories, and permissions
+- Managing users, groups, and ownership
+- Practicing real-world Linux administration tasks
+- Learning storage management using LVM
+- Building operational confidence on cloud-hosted Linux servers
 
 ---
 
-## Tools & Technologies
+## Directory Structure
+
+```bash
+02-linux/
+├── day-02/   # Linux Architecture, Processes & systemd
+├── day-03/   # Linux Commands Cheat Sheet + Networking Basics
+├── day-04/   # Processes, Services & Troubleshooting
+├── day-05/   # CPU, Memory, Disk & Log Investigation
+├── day-06/   # File Read / Write Operations
+├── day-07/   # Linux Filesystem & Navigation
+├── day-08/   # Logs Analysis & Basic Monitoring
+├── day-09/   # User & Group Management
+├── day-10/   # File Permissions & Operations
+├── day-11/   # File Ownership (chown / chgrp)
+├── day-12/   # Revision & Reinforcement
+├── day-13/   # Logical Volume Management (LVM)
+└── README.md
+```
+
+---
+
+## What I Practiced
+
+### Linux Fundamentals
+
+- Kernel vs User Space
+- Processes and PID management
+- systemd services and service lifecycle
+- Package management basics
+
+### Linux Commands
+
+- `ps`, `top`, `htop`
+- `grep`, `awk`, `sed`
+- `cat`, `echo`, `touch`
+- `cp`, `mv`, `rm`
+- `find`, `locate`
+- `chmod`, `chown`, `chgrp`
+- `df -h`, `du -sh`, `lsblk`
+- `journalctl`, `systemctl`
+
+### User Administration
+
+- Create users and groups
+- Add users to groups
+- Shared directory permissions
+- Ownership management
+
+### Storage Management
+
+- Physical Volumes
+- Volume Groups
+- Logical Volumes
+- Filesystem creation
+- Volume extension
+
+---
+
+## Tools Used
 
 - Linux (Ubuntu)
 - AWS EC2
 - Nginx
-- AWS SSM
-- LVM (pvcreate, vgcreate, lvcreate)
+- SSH
+- systemd
+- LVM2
+- Git & GitHub
 
 ---
 
-## Repository Structure
+## Key Outcome
 
-```
-devops-labs/
- └── 02-linux/
-     ├── day-02/
-     ├── day-03/
-     ├── day-04/
-     ├── day-05/
-     ├── day-06/
-     ├── day-07/
-     ├── day-08/
-     ├── day-09/
-     ├── day-10/
-     ├── day-11/
-     ├── day-12/
-     └── day-13/
-```
+This module helped me move from **basic Linux familiarity** to **practical Linux administration**, which is foundational for:
+
+- DevOps Engineering
+- Cloud Infrastructure
+- Kubernetes Administration
+- CI/CD Pipelines
+- Production Troubleshooting
 
 ---
 
-## Real-World Relevance
+## Notes
 
-These labs simulate real DevOps tasks such as:
+Each folder contains:
 
-- Managing Linux servers in production
-- Debugging system issues
-- Configuring services like Nginx
-- Handling storage scaling using LVM
+- Hands-on commands used
+- Documentation (`.md`)
+- Screenshots / outputs
+- Practical observations
 
----
-
-## Next Steps
-
-- Shell scripting for automation
-- Git & version control workflows
-- Docker & containerization
-- CI/CD pipelines
+This repository is maintained as part of continuous learning and skill building in DevOps.
 
 ---
 
 ## Author
 
 **Preetham**
-Aspiring DevOps Engineer | Cloud & Automation Enthusiast
-
----
-
-## How to Use This Repo
-
-- Navigate to each day folder
-- Review commands and documentation
-- Reproduce the steps on your own VM/EC2 instance
-
-Consistency is key. Practice daily.
+DevOps & Cloud Learner | Building in Public
