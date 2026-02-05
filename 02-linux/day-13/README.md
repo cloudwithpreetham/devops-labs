@@ -1,99 +1,160 @@
 # Day 13 – Linux Volume Management (LVM)
 
-## Task
-Learn LVM to manage storage flexibly – create, extend, and mount volumes.
+## Overview
 
-**Watch First:** [Linux LVM Tutorial](https://youtu.be/Evnf2AAt7FQ?si=ncnfQYySYtK_2K3c)
+On Day 13 of my #90DaysOfDevOps journey, I explored **Linux Logical Volume Management (LVM)** on an AWS EC2 instance.
 
----
-
-## Expected Output
-- A markdown file: `day-13-lvm.md`
-- Screenshots of command outputs
+This hands-on lab focused on creating flexible storage volumes, mounting them, and extending them dynamically without downtime—an essential real-world Linux administration and DevOps skill.
 
 ---
 
-## Before You Start
+## Objectives
 
-Switch to root user:
-```bash
-sudo -i
-```
-or
-```bash
-sudo su
-```
-No spare disk? Create a virtual one (watch the tutorial):
+- Understand LVM architecture
+- Create a Physical Volume (PV)
+- Create a Volume Group (VG)
+- Create a Logical Volume (LV)
+- Format and mount storage
+- Extend logical volumes online
+- Verify storage changes
+
+---
+
+## Lab Environment
+
+- **Platform:** AWS EC2 (Ubuntu)
+- **Privilege:** Root access
+- **Disk Type:** Loop device (virtual disk simulation)
+- **Filesystem:** ext4
+
+---
+
+## Implementation Steps
+
+### 1) Create Virtual Disk
+
+Created a 1GB virtual disk for LVM practice:
+
 ```bash
 dd if=/dev/zero of=/tmp/disk1.img bs=1M count=1024
 losetup -fP /tmp/disk1.img
-losetup -a   # Note the device name (e.g., /dev/loop0)
+losetup -a
 ```
 
 ---
 
-## Challenge Tasks
+### 2) Create Physical Volume
 
-### Task 1: Check Current Storage
-Run: `lsblk`, `pvs`, `vgs`, `lvs`, `df -h`
+Initialized the virtual disk as an LVM Physical Volume:
 
-### Task 2: Create Physical Volume
 ```bash
-pvcreate /dev/sdb   # or your loop device
+pvcreate /dev/loop4
 pvs
 ```
 
-### Task 3: Create Volume Group
+---
+
+### 3) Create Volume Group
+
+Created a storage pool named `devops-vg`:
+
 ```bash
-vgcreate devops-vg /dev/sdb
+vgcreate devops-vg /dev/loop4
 vgs
 ```
 
-### Task 4: Create Logical Volume
+---
+
+### 4) Create Logical Volume
+
+Created logical volume `app-data`:
+
 ```bash
 lvcreate -L 500M -n app-data devops-vg
 lvs
 ```
 
-### Task 5: Format and Mount
+---
+
+### 5) Format & Mount
+
+Formatted with ext4 and mounted:
+
 ```bash
 mkfs.ext4 /dev/devops-vg/app-data
 mkdir -p /mnt/app-data
 mount /dev/devops-vg/app-data /mnt/app-data
-df -h /mnt/app-data
 ```
 
-### Task 6: Extend the Volume
+---
+
+### 6) Extend Volume
+
+Extended storage online:
+
 ```bash
 lvextend -L +200M /dev/devops-vg/app-data
 resize2fs /dev/devops-vg/app-data
-df -h /mnt/app-data
 ```
 
 ---
 
-## Documentation
+## Key Concepts Learned
 
-Create `day-13-lvm.md` with:
-- Commands used
-- Screenshots of outputs
-- What you learned (3 points)
+### Physical Volume (PV)
+
+Actual storage device prepared for LVM.
+
+### Volume Group (VG)
+
+A pool of storage built from one or more PVs.
+
+### Logical Volume (LV)
+
+Virtual partitions created from a VG.
 
 ---
 
-## Submission
-1. Add your `day-13-lvm.md` to `2026/day-13/`
-2. Commit and push
+## What I Learned
+
+- LVM provides flexible storage management
+- Storage can be resized live with minimal disruption
+- Filesystems can be extended without remounting
+- LVM is widely used in production Linux environments
 
 ---
 
-## Learn in Public
+## Real-World Use Cases
 
-Share your LVM progress on LinkedIn.
+- Database storage expansion
+- Kubernetes node disk scaling
+- Log storage management
+- Dynamic cloud server storage allocation
 
+---
+
+## Project Structure
+
+```text
+day-13/
+├── screenshots/
+├── day-13-lvm.md
+├── reference.md
+└── README.md
 ```
-#90DaysOfDevOps #DevOpsKaJosh #TrainWithShubham
-```
 
-Happy Learning!
-**TrainWithShubham**
+---
+
+## Outcome
+
+Successfully implemented the complete LVM lifecycle:
+
+PV → VG → LV → Format → Mount → Extend → Verify
+
+This lab strengthened my Linux storage management fundamentals and practical DevOps troubleshooting skills.
+
+---
+
+## Tags
+
+#Linux #LVM #AWS #EC2 #DevOps #CloudEngineering #90DaysOfDevOps #TrainWithShubham
