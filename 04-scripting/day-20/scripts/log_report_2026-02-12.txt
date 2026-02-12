@@ -1,0 +1,18 @@
+Daily Log Analysis Report
+=========================
+
+Date of Analysis: 2026-02-12
+Log File Name: sample_log.log
+Total Lines Processed: 20
+Total Error Count: 13
+
+--- Top 5 Error Messages ---
+      5 ERROR Connection timed out
+      2 ERROR Permission denied
+      2 ERROR File not found
+      1 ERROR Out of memory
+      1 ERROR Disk I/O error
+
+--- Critical Events ---
+Line 8: 2026-02-11 09:30:40 CRITICAL Disk space below threshold
+Line 13: 2026-02-11 10:00:01 CRITICAL Database connection lost
