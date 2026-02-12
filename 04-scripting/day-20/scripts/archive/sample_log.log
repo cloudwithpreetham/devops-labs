@@ -1,0 +1,20 @@
+2026-02-11 09:00:01 INFO System startup completed
+2026-02-11 09:02:10 ERROR Connection timed out
+2026-02-11 09:05:33 INFO User login successful
+2026-02-11 09:10:12 ERROR File not found
+2026-02-11 09:15:45 WARNING High memory usage detected
+2026-02-11 09:20:01 Failed to connect to backup server
+2026-02-11 09:25:18 ERROR Permission denied
+2026-02-11 09:30:40 CRITICAL Disk space below threshold
+2026-02-11 09:35:22 ERROR Connection timed out
+2026-02-11 09:40:09 ERROR File not found
+2026-02-11 09:45:31 INFO Scheduled job completed
+2026-02-11 09:50:12 ERROR Connection timed out
+2026-02-11 10:00:01 CRITICAL Database connection lost
+2026-02-11 10:10:10 Failed to restart nginx service
+2026-02-11 10:20:20 ERROR Disk I/O error
+2026-02-11 10:25:30 ERROR Permission denied
+2026-02-11 10:30:40 ERROR Connection timed out
+2026-02-11 10:35:50 ERROR Out of memory
+2026-02-11 10:40:15 INFO Cleanup completed
+2026-02-11 10:45:55 ERROR Connection timed out
