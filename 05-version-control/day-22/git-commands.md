@@ -101,7 +101,7 @@ Shows all files and folders, including the hidden `.git/` directory.
 git status
 ```
 
-Shows the current state of the working directory and staging area.
+Shows the current branch, working directory, and staging area status.
 
 ### Stage a specific file
 
@@ -260,7 +260,128 @@ Force deletes a branch even if it has not been merged.
 
 ---
 
-## 6. Remote Repository Commands
+## 6. Merge and Rebase Commands
+
+### Merge a branch into the current branch
+
+```bash
+git merge feature-login
+```
+
+Combines the `feature-login` branch into the branch you are currently on.
+
+### Merge a branch with squash
+
+```bash
+git merge --squash feature-profile
+```
+
+Combines all commits from the branch into one staged change on the current branch.
+After this, create a commit manually.
+
+```bash
+git commit -m "feat: add profile feature"
+```
+
+### Rebase current branch onto another branch
+
+```bash
+git rebase main
+```
+
+Moves the current branch commits and replays them on top of the latest `main` branch.
+
+### Continue rebase after resolving conflicts
+
+```bash
+git rebase --continue
+```
+
+Continues an active rebase after conflicts have been resolved and staged.
+
+### Abort an active rebase
+
+```bash
+git rebase --abort
+```
+
+Stops the rebase and returns the branch to its previous state.
+
+---
+
+## 7. Stash Commands
+
+### Save uncommitted changes temporarily
+
+```bash
+git stash
+```
+
+Temporarily saves uncommitted changes and returns the working tree to a clean state.
+
+### Save stash with a message
+
+```bash
+git stash push -m "wip: temporary dashboard update"
+```
+
+Saves uncommitted changes with a clear message.
+
+### List all stashes
+
+```bash
+git stash list
+```
+
+Shows all saved stashes.
+
+### Apply latest stash and remove it from stash list
+
+```bash
+git stash pop
+```
+
+Restores the latest stash and removes it from the stash list.
+
+### Apply latest stash but keep it in stash list
+
+```bash
+git stash apply
+```
+
+Restores the latest stash but keeps it saved in the stash list.
+
+### Apply a specific stash
+
+```bash
+git stash apply stash@{1}
+```
+
+Restores a specific stash from the stash list.
+
+### Delete a specific stash
+
+```bash
+git stash drop stash@{1}
+```
+
+Deletes a specific stash when it is no longer needed.
+
+---
+
+## 8. Cherry-Pick Commands
+
+### Cherry-pick a specific commit
+
+```bash
+git cherry-pick <commit-hash>
+```
+
+Copies one specific commit from another branch and applies it to the current branch.
+
+---
+
+## 9. Remote Repository Commands
 
 ### Add GitHub remote repository
 
@@ -312,7 +433,7 @@ Downloads and merges changes from the remote `main` branch.
 
 ---
 
-## 7. Clone and Fork Commands
+## 10. Clone and Fork Commands
 
 ### Clone a repository
 
@@ -365,7 +486,7 @@ Pushes the updated local branch to your GitHub fork.
 
 ---
 
-## 8. Help Commands
+## 11. Help Commands
 
 ### Open general Git help
 
@@ -385,7 +506,7 @@ Displays detailed help for the `git status` command.
 
 ---
 
-## 9. Quick Reference
+## 12. Quick Reference
 
 ### First-time Git setup
 
@@ -417,6 +538,50 @@ git status
 git add .
 git commit -m "Add feature work"
 git switch main
+```
+
+### Merge workflow
+
+```bash
+git switch main
+git merge feature-login
+git log --oneline --graph --all
+```
+
+### Rebase workflow
+
+```bash
+git switch feature-dashboard
+git rebase main
+git log --oneline --graph --all
+```
+
+### Squash merge workflow
+
+```bash
+git switch main
+git merge --squash feature-profile
+git commit -m "feat: add profile feature"
+```
+
+### Stash workflow
+
+```bash
+git status
+git stash push -m "wip: temporary change"
+git stash list
+git switch main
+git switch feature-branch
+git stash pop
+```
+
+### Cherry-pick workflow
+
+```bash
+git log --oneline
+git switch main
+git cherry-pick <commit-hash>
+git log --oneline --graph --all
 ```
 
 ### GitHub workflow
