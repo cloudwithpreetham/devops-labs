@@ -381,7 +381,52 @@ Copies one specific commit from another branch and applies it to the current bra
 
 ---
 
-## 9. Remote Repository Commands
+## 9. Undo and Recovery Commands
+
+### Undo last commit but keep changes staged
+
+```bash
+git reset --soft HEAD~1
+```
+
+Moves `HEAD` back by one commit and keeps the undone commit changes in the staging area.
+
+### Undo last commit and unstage changes
+
+```bash
+git reset --mixed HEAD~1
+```
+
+Moves `HEAD` back by one commit and keeps the undone commit changes in the working directory as unstaged changes.
+
+### Undo last commit and discard changes
+
+```bash
+git reset --hard HEAD~1
+```
+
+Moves `HEAD` back by one commit and deletes the undone commit changes from the working directory.
+Use this carefully because it can permanently remove local work.
+
+### Revert a specific commit safely
+
+```bash
+git revert <commit-hash>
+```
+
+Creates a new commit that reverses the changes from an older commit without rewriting history.
+
+### View reference history
+
+```bash
+git reflog
+```
+
+Shows recent movements of `HEAD`, which can help recover commits after a reset or branch mistake.
+
+---
+
+## 10. Remote Repository Commands
 
 ### Add GitHub remote repository
 
@@ -433,7 +478,7 @@ Downloads and merges changes from the remote `main` branch.
 
 ---
 
-## 10. Clone and Fork Commands
+## 11. Clone and Fork Commands
 
 ### Clone a repository
 
@@ -486,7 +531,7 @@ Pushes the updated local branch to your GitHub fork.
 
 ---
 
-## 11. Help Commands
+## 12. Help Commands
 
 ### Open general Git help
 
@@ -506,7 +551,7 @@ Displays detailed help for the `git status` command.
 
 ---
 
-## 12. Quick Reference
+## 13. Quick Reference
 
 ### First-time Git setup
 
@@ -582,6 +627,29 @@ git log --oneline
 git switch main
 git cherry-pick <commit-hash>
 git log --oneline --graph --all
+```
+
+### Reset workflow
+
+```bash
+git log --oneline
+git reset --soft HEAD~1
+git status
+```
+
+### Revert workflow
+
+```bash
+git log --oneline
+git revert <commit-hash>
+git log --oneline
+```
+
+### Recovery workflow
+
+```bash
+git reflog
+git log --oneline
 ```
 
 ### GitHub workflow
