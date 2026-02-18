@@ -478,7 +478,384 @@ Downloads and merges changes from the remote `main` branch.
 
 ---
 
-## 11. Clone and Fork Commands
+## 11. GitHub CLI Authentication Commands
+
+### Check GitHub CLI version
+
+```bash
+gh --version
+```
+
+Shows the installed GitHub CLI version.
+
+### Authenticate GitHub CLI
+
+```bash
+gh auth login
+```
+
+Logs in to GitHub from the terminal.
+
+### Check authentication status
+
+```bash
+gh auth status
+```
+
+Shows the active GitHub account, authentication method, and token status.
+
+### Log out from GitHub CLI
+
+```bash
+gh auth logout
+```
+
+Logs out from the authenticated GitHub account.
+
+---
+
+## 12. GitHub CLI Repository Commands
+
+### Create a public repository with README
+
+```bash
+gh repo create repo-name --public --add-readme
+```
+
+Creates a new public GitHub repository and adds a README file.
+
+### Clone a repository using GitHub CLI
+
+```bash
+gh repo clone owner/repo
+```
+
+Clones a GitHub repository to your local machine.
+
+### View repository details
+
+```bash
+gh repo view owner/repo
+```
+
+Shows repository details in the terminal.
+
+### Open repository in browser
+
+```bash
+gh repo view --web
+```
+
+Opens the current repository on GitHub in a browser.
+
+### List repositories
+
+```bash
+gh repo list
+```
+
+Lists repositories for the authenticated GitHub user.
+
+### List more repositories
+
+```bash
+gh repo list --limit 50
+```
+
+Lists up to 50 repositories.
+
+### Delete a repository
+
+```bash
+gh repo delete owner/repo
+```
+
+Deletes a GitHub repository.
+Use this carefully because it is destructive.
+
+---
+
+## 13. GitHub CLI Issue Commands
+
+### Create an issue
+
+```bash
+gh issue create --title "Title" --body "Body" --label "bug"
+```
+
+Creates a new GitHub issue.
+
+### List open issues
+
+```bash
+gh issue list
+```
+
+Lists open issues in the current repository.
+
+### View a specific issue
+
+```bash
+gh issue view ISSUE_NUMBER
+```
+
+Shows details for a specific issue.
+
+### Close an issue
+
+```bash
+gh issue close ISSUE_NUMBER
+```
+
+Closes an open issue.
+
+### Reopen an issue
+
+```bash
+gh issue reopen ISSUE_NUMBER
+```
+
+Reopens a closed issue.
+
+---
+
+## 14. GitHub CLI Pull Request Commands
+
+### Create a pull request
+
+```bash
+gh pr create --title "Title" --body "Body"
+```
+
+Creates a pull request from the current branch.
+
+### Create a pull request using commit details
+
+```bash
+gh pr create --fill
+```
+
+Creates a pull request using commit messages for the title and body.
+
+### List open pull requests
+
+```bash
+gh pr list
+```
+
+Lists open pull requests in the current repository.
+
+### View pull request details
+
+```bash
+gh pr view PR_NUMBER
+```
+
+Shows details for a specific pull request.
+
+### Open pull request in browser
+
+```bash
+gh pr view PR_NUMBER --web
+```
+
+Opens a pull request on GitHub in a browser.
+
+### Show pull request status
+
+```bash
+gh pr status
+```
+
+Shows pull request status for the current repository.
+
+### Checkout a pull request locally
+
+```bash
+gh pr checkout PR_NUMBER
+```
+
+Checks out a pull request branch locally.
+
+### View pull request diff
+
+```bash
+gh pr diff PR_NUMBER
+```
+
+Shows the code changes in a pull request.
+
+### Approve a pull request
+
+```bash
+gh pr review PR_NUMBER --approve
+```
+
+Approves a pull request.
+
+### Comment on a pull request
+
+```bash
+gh pr review PR_NUMBER --comment --body "message"
+```
+
+Adds a review comment to a pull request.
+
+### Request changes on a pull request
+
+```bash
+gh pr review PR_NUMBER --request-changes --body "message"
+```
+
+Requests changes on a pull request.
+
+### Merge pull request with merge commit
+
+```bash
+gh pr merge PR_NUMBER --merge
+```
+
+Merges a pull request using a merge commit.
+
+### Merge pull request with squash
+
+```bash
+gh pr merge PR_NUMBER --squash
+```
+
+Squashes pull request commits into one commit before merging.
+
+### Merge pull request with rebase
+
+```bash
+gh pr merge PR_NUMBER --rebase
+```
+
+Rebases pull request commits before merging.
+
+---
+
+## 15. GitHub CLI Actions Commands
+
+### List workflow runs
+
+```bash
+gh run list
+```
+
+Lists recent GitHub Actions workflow runs.
+
+### View workflow run details
+
+```bash
+gh run view RUN_ID
+```
+
+Shows details for a specific workflow run.
+
+### Watch a workflow run live
+
+```bash
+gh run watch RUN_ID
+```
+
+Watches a workflow run until it completes.
+
+### View workflow logs
+
+```bash
+gh run view --log
+```
+
+Shows logs for a workflow run.
+
+### List workflows
+
+```bash
+gh workflow list
+```
+
+Lists GitHub Actions workflows in the repository.
+
+### Trigger a workflow manually
+
+```bash
+gh workflow run workflow.yml
+```
+
+Runs a GitHub Actions workflow manually.
+
+---
+
+## 16. GitHub CLI Extra Commands
+
+### Call GitHub API
+
+```bash
+gh api user
+```
+
+Calls the GitHub API and shows authenticated user details.
+
+### List repositories using GitHub API
+
+```bash
+gh api user/repos
+```
+
+Lists repositories using a raw GitHub API call.
+
+### Create a public gist
+
+```bash
+gh gist create file.txt --public
+```
+
+Creates a public GitHub Gist.
+
+### List gists
+
+```bash
+gh gist list
+```
+
+Lists GitHub Gists.
+
+### Create a release
+
+```bash
+gh release create v1.0.0 --title "v1.0.0" --notes "Initial release"
+```
+
+Creates a GitHub release.
+
+### List releases
+
+```bash
+gh release list
+```
+
+Lists GitHub releases.
+
+### Create a GitHub CLI alias
+
+```bash
+gh alias set prs 'pr list'
+```
+
+Creates a shortcut for a frequently used GitHub CLI command.
+
+### Search GitHub repositories
+
+```bash
+gh search repos devops --limit 10
+```
+
+Searches GitHub repositories from the terminal.
+
+---
+
+## 17. Clone and Fork Commands
 
 ### Clone a repository
 
@@ -531,7 +908,7 @@ Pushes the updated local branch to your GitHub fork.
 
 ---
 
-## 12. Help Commands
+## 18. Help Commands
 
 ### Open general Git help
 
@@ -551,7 +928,7 @@ Displays detailed help for the `git status` command.
 
 ---
 
-## 13. Quick Reference
+## 19. Quick Reference
 
 ### First-time Git setup
 
@@ -660,6 +1037,63 @@ git remote -v
 git push -u origin main
 git push -u origin feature-1
 git pull origin main
+```
+
+### GitHub CLI authentication workflow
+
+```bash
+gh --version
+gh auth login
+gh auth status
+```
+
+### GitHub CLI repository workflow
+
+```bash
+gh repo create repo-name --public --add-readme
+gh repo clone owner/repo
+gh repo view owner/repo
+gh repo list --limit 50
+```
+
+### GitHub CLI issue workflow
+
+```bash
+gh issue create --title "Title" --body "Body" --label "bug"
+gh issue list
+gh issue view ISSUE_NUMBER
+gh issue close ISSUE_NUMBER
+```
+
+### GitHub CLI pull request workflow
+
+```bash
+gh pr create --fill
+gh pr list
+gh pr view PR_NUMBER
+gh pr diff PR_NUMBER
+gh pr review PR_NUMBER --approve
+gh pr merge PR_NUMBER --squash
+```
+
+### GitHub CLI Actions workflow
+
+```bash
+gh run list
+gh run view RUN_ID
+gh run watch RUN_ID
+gh workflow list
+gh workflow run workflow.yml
+```
+
+### GitHub CLI extras workflow
+
+```bash
+gh api user
+gh gist create file.txt --public
+gh release create v1.0.0 --title "v1.0.0" --notes "Initial release"
+gh alias set prs 'pr list'
+gh search repos devops --limit 10
 ```
 
 ### Fork sync workflow
