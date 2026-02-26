@@ -1,0 +1,68 @@
+services:
+  web:
+    build: ./app
+    container_name: day34-web
+    ports:
+      - "5000:5000"
+    environment:
+      DB_HOST: db
+      DB_NAME: devopsdb
+      DB_USER: devops
+      DB_PASSWORD: devopspass
+      REDIS_HOST: cache
+    depends_on:
+      db:
+        condition: service_healthy
+      cache:
+        condition: service_started
+    networks:
+      - app-network
+    labels:
+      project: "90DaysOfDevOps"
+      day: "34"
+      service: "web-app"
+
+  db:
+    image: postgres:16
+    container_name: day34-db
+    restart: always
+    environment:
+      POSTGRES_DB: devopsdb
+      POSTGRES_USER: devops
+      POSTGRES_PASSWORD: devopspass
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U devops -d devopsdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    labels:
+      project: "90DaysOfDevOps"
+      day: "34"
+      service: "postgres-database"
+
+  cache:
+    image: redis:7
+    container_name: day34-cache
+    networks:
+      - app-network
+    labels:
+      project: "90DaysOfDevOps"
+      day: "34"
+      service: "redis-cache"
+
+networks:
+  app-network:
+    driver: bridge
+    labels:
+      project: "90DaysOfDevOps"
+      day: "34"
+
+volumes:
+  postgres-data:
+    labels:
+      project: "90DaysOfDevOps"
+      day: "34"
