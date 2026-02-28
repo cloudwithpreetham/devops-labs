@@ -1,0 +1,39 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flask-notes-app
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - notes-network
+    restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    container_name: notes-postgres-db
+    env_file:
+      - .env
+    volumes:
+      - notes-db-data:/var/lib/postgresql/data
+    networks:
+      - notes-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U notesuser -d notesdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  notes-db-data:
+
+networks:
+  notes-network:
+    driver: bridge
