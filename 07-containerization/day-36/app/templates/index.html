@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dockerized Notes App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #222;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 10px;
+            width: 75%;
+        }
+
+        button {
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        .note {
+            background: white;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-left: 4px solid #007acc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dockerized Flask Notes App</h1>
+
+    <form method="POST">
+        <input type="text" name="note" placeholder="Write a note..." required>
+        <button type="submit">Add Note</button>
+    </form>
+
+    <h2>Saved Notes</h2>
+
+    {% for note in notes %}
+        <div class="note">
+            {{ note[1] }}
+        </div>
+    {% else %}
+        <p>No notes yet. Add your first note.</p>
+    {% endfor %}
+</body>
+</html>
