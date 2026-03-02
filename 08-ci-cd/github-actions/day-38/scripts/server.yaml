@@ -1,0 +1,22 @@
+server:
+  name: app-server-01
+  ip: 192.168.1.10
+  port: 8080
+
+database:
+  host: localhost
+  name: devops_db
+  credentials:
+    user: admin
+    password: secure_password
+
+startup_script_preserve: |
+  #!/bin/bash
+  echo "Starting application server..."
+  systemctl start nginx
+  systemctl status nginx
+
+startup_script_fold: >
+  This script starts the application server,
+  checks the nginx service status,
+  and confirms that the server is running.
