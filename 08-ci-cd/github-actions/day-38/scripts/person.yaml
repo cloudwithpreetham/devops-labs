@@ -1,0 +1,14 @@
+name: Preetham
+role: DevOps Learner
+experience_years: 0
+learning: true
+
+skills:
+  - Git
+  - Docker
+  - Kubernetes
+  - CI/CD
+  - Linux
+  - AWS
+
+hobbies: [learning DevOps, coding, reading, problem solving]
