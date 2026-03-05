@@ -1,0 +1,22 @@
+name: Manual Environment Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Choose deployment environment"
+        required: true
+        default: "staging"
+        type: choice
+        options:
+          - staging
+          - production
+
+jobs:
+  manual-run:
+    name: Manual Trigger Job
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print selected environment
+        run: echo "Selected environment is ${{ github.event.inputs.environment }}"
