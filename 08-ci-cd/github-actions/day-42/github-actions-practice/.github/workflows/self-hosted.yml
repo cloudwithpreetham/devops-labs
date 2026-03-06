@@ -1,0 +1,26 @@
+name: Self Hosted Runner Demo
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-on-my-machine:
+    name: Run Job on Self-Hosted Runner
+    runs-on: self-hosted
+
+    steps:
+      - name: Print machine details
+        run: |
+          echo "Runner OS: $RUNNER_OS"
+          echo "Hostname: $(hostname)"
+          echo "Current User: $(whoami)"
+          echo "Working Directory: $(pwd)"
+
+      - name: Create test file on self-hosted runner
+        run: |
+          echo "This file was created by GitHub Actions on my self-hosted runner." > day-42-runner-test.txt
+          ls -la
+          cat day-42-runner-test.txt
