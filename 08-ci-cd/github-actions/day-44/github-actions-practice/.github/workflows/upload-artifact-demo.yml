@@ -1,0 +1,25 @@
+name: Upload Artifact Demo
+
+on:
+  push:
+    paths:
+      - ".github/workflows/upload-artifact-demo.yml"
+  workflow_dispatch:
+
+jobs:
+  generate-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Generate test report
+        run: |
+          mkdir -p reports
+          echo "Day 44 CI Artifact Report" > reports/test-report.txt
+          echo "Status: Passed" >> reports/test-report.txt
+          echo "Generated at: $(date)" >> reports/test-report.txt
+
+      - name: Upload test report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: day-44-test-report
+          path: reports/test-report.txt
