@@ -1,0 +1,40 @@
+name: Artifact Between Jobs
+
+on:
+  push:
+    paths:
+      - ".github/workflows/artifact-between-jobs.yml"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Generate build output
+        run: |
+          mkdir -p output
+          echo "Build completed successfully" > output/build-result.txt
+          echo "Artifact created by build job" >> output/build-result.txt
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: output/build-result.txt
+
+  use-artifact:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output
+          path: downloaded-output
+
+      - name: Print artifact contents
+        run: |
+          echo "Reading artifact from previous job:"
+          cat downloaded-output/build-result.txt
