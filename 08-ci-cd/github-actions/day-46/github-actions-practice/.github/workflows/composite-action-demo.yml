@@ -1,0 +1,25 @@
+name: Composite Action Demo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run custom composite action
+        id: greet-action
+        uses: ./.github/actions/setup-and-greet
+        with:
+          name: "Preetham"
+          language: "en"
+
+      - name: Print composite action output
+        run: |
+          echo "Greeting completed: ${{ steps.greet-action.outputs.greeted }}"
