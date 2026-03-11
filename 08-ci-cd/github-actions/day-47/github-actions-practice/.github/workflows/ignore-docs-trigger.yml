@@ -1,0 +1,18 @@
+name: Ignore Docs Trigger
+
+on:
+  push:
+    branches:
+      - main
+      - 'release/**'
+    paths-ignore:
+      - '*.md'
+      - 'docs/**'
+
+jobs:
+  ignore-docs-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print trigger message
+        run: echo "Workflow skipped if only markdown or docs files changed."
