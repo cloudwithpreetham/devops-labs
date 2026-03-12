@@ -1,0 +1,98 @@
+name: Main Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-test:
+    uses: ./.github/workflows/reusable-build-test.yml
+    with:
+      python_version: "3.12"
+      run_tests: true
+
+  prepare:
+    runs-on: ubuntu-latest
+    needs: build-test
+
+    outputs:
+      short_sha: ${{ steps.vars.outputs.short_sha }}
+
+    steps:
+      - name: Create short SHA
+        id: vars
+        run: |
+          echo "short_sha=$(echo ${{ github.sha }} | cut -c1-7)" >> "$GITHUB_OUTPUT"
+
+  docker-latest:
+    needs: prepare
+    uses: ./.github/workflows/reusable-docker.yml
+    with:
+      docker_username: ${{ vars.DOCKERHUB_USERNAME }}
+      image_name: github-actions-capstone
+      tag: latest
+    secrets:
+      docker_token: ${{ secrets.DOCKERHUB_TOKEN }}
+
+  docker-sha:
+    needs: prepare
+    uses: ./.github/workflows/reusable-docker.yml
+    with:
+      docker_username: ${{ vars.DOCKERHUB_USERNAME }}
+      image_name: github-actions-capstone
+      tag: sha-${{ needs.prepare.outputs.short_sha }}
+    secrets:
+      docker_token: ${{ secrets.DOCKERHUB_TOKEN }}
+  security-scan:
+    runs-on: ubuntu-latest
+    needs:
+      - prepare
+      - docker-sha
+
+    steps:
+      - name: Validate image URL
+        run: |
+          echo "Image to scan: ${{ needs.docker-sha.outputs.image_url }}"
+
+          if [ -z "${{ needs.docker-sha.outputs.image_url }}" ]; then
+          echo "image_url output is empty"
+          exit 1
+          fi
+
+      - name: Run Trivy vulnerability scan
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: ${{ needs.docker-sha.outputs.image_url }}
+          format: table
+          severity: CRITICAL
+          exit-code: 1
+          ignore-unfixed: true
+          output: trivy-report.txt
+
+      - name: Print Trivy report
+        if: always()
+        run: |
+          cat trivy-report.txt
+
+      - name: Upload Trivy scan report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-scan-report
+          path: trivy-report.txt
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs:
+      - docker-latest
+      - docker-sha
+      - security-scan
+
+    environment: production
+
+    steps:
+      - name: Deploy to production
+        run: |
+          echo "Deploying image: ${{ needs.docker-sha.outputs.image_url }} to production"
+          echo "Deployment completed successfully"
