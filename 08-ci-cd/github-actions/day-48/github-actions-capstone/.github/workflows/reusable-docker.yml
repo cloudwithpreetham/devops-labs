@@ -1,0 +1,70 @@
+name: Reusable Docker Build and Push
+
+on:
+  workflow_call:
+    inputs:
+      docker_username:
+        description: "Docker Hub username"
+        required: true
+        type: string
+      image_name:
+        description: "Docker image name"
+        required: true
+        type: string
+      tag:
+        description: "Docker image tag"
+        required: true
+        type: string
+
+    secrets:
+      docker_token:
+        required: true
+
+    outputs:
+      image_url:
+        description: "Full Docker image URL"
+        value: ${{ jobs.docker.outputs.image_url }}
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    outputs:
+      image_url: ${{ steps.image-info.outputs.image_url }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate Docker inputs
+        run: |
+          if [ -z "${{ inputs.docker_username }}" ]; then
+            echo "docker_username input is missing"
+            exit 1
+          fi
+
+          if [ -z "${{ secrets.docker_token }}" ]; then
+            echo "docker_token secret is missing"
+            exit 1
+          fi
+
+          echo "Docker inputs are available"
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v4
+        with:
+          username: ${{ inputs.docker_username }}
+          password: ${{ secrets.docker_token }}
+
+      - name: Build and push Docker image
+        run: |
+          IMAGE_URL="${{ inputs.docker_username }}/${{ inputs.image_name }}:${{ inputs.tag }}"
+          echo "Building image: $IMAGE_URL"
+          docker build -t "$IMAGE_URL" .
+          docker push "$IMAGE_URL"
+
+      - name: Set image URL output
+        id: image-info
+        run: |
+          IMAGE_URL="${{ inputs.docker_username }}/${{ inputs.image_name }}:${{ inputs.tag }}"
+          echo "image_url=$IMAGE_URL" >> "$GITHUB_OUTPUT"
