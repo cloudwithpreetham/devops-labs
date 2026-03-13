@@ -1,0 +1,63 @@
+name: Main Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build-test:
+    uses: ./.github/workflows/reusable-build-test.yml
+    with:
+      python_version: "3.12"
+      run_tests: true
+
+  prepare:
+    runs-on: ubuntu-latest
+    needs: build-test
+
+    outputs:
+      short_sha: ${{ steps.vars.outputs.short_sha }}
+
+    steps:
+      - name: Create short SHA
+        id: vars
+        run: |
+          echo "short_sha=$(echo ${{ github.sha }} | cut -c1-7)" >> "$GITHUB_OUTPUT"
+
+  docker-latest:
+    needs: prepare
+    uses: ./.github/workflows/reusable-docker.yml
+    with:
+      docker_username: ${{ vars.DOCKERHUB_USERNAME }}
+      image_name: github-actions-capstone
+      tag: latest
+    secrets:
+      docker_token: ${{ secrets.DOCKERHUB_TOKEN }}
+
+  docker-sha:
+    needs: prepare
+    uses: ./.github/workflows/reusable-docker.yml
+    with:
+      docker_username: ${{ vars.DOCKERHUB_USERNAME }}
+      image_name: github-actions-capstone
+      tag: sha-${{ needs.prepare.outputs.short_sha }}
+    secrets:
+      docker_token: ${{ secrets.DOCKERHUB_TOKEN }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs:
+      - docker-latest
+      - docker-sha
+
+    environment: production
+
+    steps:
+      - name: Deploy to production
+        run: |
+          echo "Deploying image: ${{ needs.docker-sha.outputs.image_url }} to production"
+          echo "Deployment completed successfully"
