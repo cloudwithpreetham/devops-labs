@@ -1,0 +1,27 @@
+---
+- name: Apply common configuration
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Install common packages
+      package:
+        name: "{{ common_packages }}"
+        state: present
+
+    - name: Show environment
+      debug:
+        msg: "Environment: {{ app_env }}"
+
+- name: Configure web servers
+  hosts: web
+  become: true
+
+  tasks:
+    - name: Show web configuration
+      debug:
+        msg: "HTTP Port: {{ http_port }}, Max Connections: {{ max_connections }}"
+
+    - name: Show host specific message
+      debug:
+        msg: "{{ custom_message }}"
