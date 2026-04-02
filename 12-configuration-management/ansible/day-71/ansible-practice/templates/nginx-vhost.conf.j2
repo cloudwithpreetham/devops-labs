@@ -1,7 +1,7 @@
 # Managed by Ansible -- do not edit manually
 server {
     listen {{ http_port | default(80) }};
-    server_name {{ ansible_hostname }};
+    server_name {{ ansible_fqdn | default(ansible_hostname) }};
 
     root /var/www/{{ app_name }};
     index index.html;
