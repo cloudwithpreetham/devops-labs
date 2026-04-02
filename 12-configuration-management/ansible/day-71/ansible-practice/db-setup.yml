@@ -1,0 +1,9 @@
+---
+- name: Configure database server
+  hosts: db
+  become: true
+
+  tasks:
+    - name: Show DB password length (safe check)
+      debug:
+        msg: "Password length is {{ vault_db_password | length }}"
