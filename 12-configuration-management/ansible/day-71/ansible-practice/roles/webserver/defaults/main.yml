@@ -1,0 +1,4 @@
+---
+# defaults file for roles/webserver
+http_port: 80
+app_name: myapp

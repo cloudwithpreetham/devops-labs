@@ -1,0 +1,10 @@
+---
+- name: Configure web servers using role
+  hosts: web
+  become: true
+
+  roles:
+    - role: webserver
+      vars:
+        app_name: terraweek-role
+        http_port: 80
