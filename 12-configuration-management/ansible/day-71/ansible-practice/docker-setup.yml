@@ -1,0 +1,23 @@
+---
+- name: Install Docker on Amazon Linux 2023
+  hosts: app
+  become: true
+
+  tasks:
+    - name: Install Docker using Amazon Linux packages
+      dnf:
+        name:
+          - docker
+        state: present
+
+    - name: Enable and start Docker service
+      service:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Add ec2-user to docker group
+      user:
+        name: ec2-user
+        groups: docker
+        append: yes
