@@ -1,0 +1,54 @@
+---
+- name: Install Docker
+  ansible.builtin.dnf:
+    name: docker
+    state: present
+  tags:
+    - docker
+
+- name: Start and enable Docker
+  ansible.builtin.service:
+    name: docker
+    state: started
+    enabled: true
+  tags:
+    - docker
+
+- name: Add deploy user to docker group
+  ansible.builtin.user:
+    name: deploy
+    groups: docker
+    append: true
+  tags:
+    - docker
+
+- name: Pull application image
+  community.docker.docker_image:
+    name: "{{ docker_app_image }}"
+    tag: "{{ docker_app_tag }}"
+    source: pull
+  tags:
+    - docker
+
+- name: Run application container
+  community.docker.docker_container:
+    name: "{{ docker_app_name }}"
+    image: "{{ docker_app_image }}:{{ docker_app_tag }}"
+    state: started
+    restart_policy: always
+    recreate: true
+    ports:
+      - "{{ docker_app_port }}:{{ docker_container_port }}"
+  tags:
+    - docker
+
+- name: Wait for application
+  ansible.builtin.uri:
+    url: "http://localhost:{{ docker_app_port }}"
+    status_code: 200
+  register: health_check
+  retries: 5
+  delay: 3
+  until: health_check.status == 200
+  tags:
+    - docker
