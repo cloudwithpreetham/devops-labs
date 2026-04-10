@@ -1,0 +1,12 @@
+Thank you for installing {{ .Chart.Name }}.
+
+Release Name: {{ .Release.Name }}
+Namespace: {{ .Release.Namespace }}
+
+Check resources:
+
+kubectl get all -n {{ .Release.Namespace }}
+
+To uninstall:
+
+helm uninstall {{ .Release.Name }} -n {{ .Release.Namespace }}
