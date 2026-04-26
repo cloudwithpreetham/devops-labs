@@ -1,90 +1,136 @@
 # Day 03 – Linux Commands Practice
 
-## Task
+## Overview
 
-Today’s goal is to **build your Linux command confidence**.
+Day 03 focused on building command-line confidence by practicing essential Linux commands used daily in DevOps and system administration.
 
-You will create a cheat sheet of commands focused on:
+The learning objective was to strengthen troubleshooting skills across:
 
 - Process management
-- File system
-- Networking troubleshooting
+- File system navigation
+- Networking diagnostics
+- Service lifecycle management using systemd
 
-This is the command toolkit you will reuse for years.
-
----
-
-## Expected Output
-
-By the end of today, you should have:
-
-- A markdown file named:
-  `day-03-linux-commands-cheatsheet.md`
-
-or
-
-- A hand written cheat sheet (Recommended)
-
-Your cheat sheet should be easy to scan during real troubleshooting.
+This session also included hands-on work with **Nginx**, covering installation, process verification, port inspection, and service management.
 
 ---
 
-## Guidelines
+## What I Practiced
 
-Follow these rules while creating your cheat sheet:
+### Process Management
 
-- Include **at least 20 commands** with one‑line usage notes
-- Add **3 networking commands** (`ping`, `ip addr`, `dig`, `curl`, etc.)
-- Group commands by category
-- Keep it concise and readable
+- Listing running processes using `ps aux`
+- Filtering processes with `grep`
+- Understanding process termination using `kill` and `kill -9`
+- Inspecting service state with `systemctl`
 
----
+### File System & Logs
 
-## Resources
+- Searching logs with `find`
+- Viewing log content using `cat`, `less`, `head`, `tail`
+- Live monitoring with `tail -f`
+- Understanding Linux log locations under `/var/log`
 
-You may refer to:
+### Networking Troubleshooting
 
-- Linux `man` pages
-- Your class notes
-- Reliable Linux command references
+- Checking connectivity using `ping`
+- Inspecting open ports with `ss -tuln`
+- Verifying DNS resolution using `dig`
+- Testing service accessibility using `curl`
 
-Don’t copy long lists. Focus on commands you understand.
+### Service Management
 
----
-
-## Why This Matters for DevOps
-
-Real production issues are solved at the command line.
-
-The faster you can inspect logs and network issues, the faster you can:
-
-- Restore service
-- Reduce downtime
-- Gain trust as an operator
+- Installing Nginx
+- Verifying master and worker processes
+- Confirming port exposure on port `80`
+- Stopping and validating service state
 
 ---
 
-## Submission
+## Files in This Directory
 
-1. Fork this `90DaysOfDevOps` repository
-2. Navigate to the `2026/day-03/` folder
-3. Add your `day-03-linux-commands-cheatsheet.md` file
-4. Commit and push your changes to your fork
+```text
+day-03/
+├── screenshots/
+├── day-03-linux-commands-cheatsheet.md
+├── day-03-linux-commands-practice.md
+├── reference.md
+└── README.md
+```
+
+### File Description
+
+| File                                  | Purpose                                     |
+| ------------------------------------- | ------------------------------------------- |
+| `day-03-linux-commands-cheatsheet.md` | Quick command reference for troubleshooting |
+| `day-03-linux-commands-practice.md`   | Detailed hands-on documentation             |
+| `reference.md`                        | Notes/resources used during learning        |
+| `screenshots/`                        | Command execution evidence                  |
 
 ---
 
-## Learn in Public
+## Key Learnings
 
-Share your Day 03 progress on LinkedIn:
+- Linux troubleshooting starts with logs
+- Real-time monitoring is critical during incidents
+- Networking tools quickly identify connectivity issues
+- `systemctl` is essential for service management
+- Verifying process + port + logs is a standard debugging workflow
 
-- Post 2–3 lines on your favorite Linux commands
-- Share one log command and one networking command
-- Optional: screenshot of your cheat sheet
+---
 
-Use hashtags:
-#90DaysOfDevOps
-#DevOpsKaJosh
-#TrainWithShubham
+## Commands Practiced
 
-Happy Learning
-**TrainWithShubham**
+```bash
+find /var/log -name "*.log"
+tail -f /var/log/syslog
+ps aux | grep nginx
+kill -9 <PID>
+ss -tuln
+ping -c 4 google.com
+dig google.com
+sudo apt install nginx -y
+sudo systemctl stop nginx
+sudo systemctl status nginx
+```
+
+---
+
+## Real-World DevOps Relevance
+
+These commands are frequently used for:
+
+- Production debugging
+- Incident response
+- Service verification
+- Network troubleshooting
+- Application monitoring
+
+Mastering them builds strong operational confidence.
+
+---
+
+## Progress
+
+Day 03 completed successfully with:
+
+- Documentation completed
+- Cheatsheet prepared
+- Screenshots captured
+- Practical Linux troubleshooting performed
+- Nginx service lifecycle tested
+
+---
+
+## Next Focus
+
+**Day 04 – Linux Users, Groups, and Permissions**
+
+Topics ahead:
+
+- User creation
+- Group management
+- File ownership
+- chmod / chown
+- sudo privileges
+- Secure Linux administration
