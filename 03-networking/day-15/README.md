@@ -1,104 +1,137 @@
 # Day 15 – Networking Concepts: DNS, IP, Subnets & Ports
 
-## Task
-Build on Day 14 by understanding the building blocks of networking every DevOps engineer must know.
+## Overview
 
-You will:
-- Understand how **DNS** resolves names to IPs
-- Learn **IP addressing** (IPv4, public vs private)
-- Break down **CIDR notation** and **subnetting** basics
-- Know common **ports** and why they matter
+Day 15 focused on understanding the core networking concepts every DevOps engineer must know. This included learning how DNS resolves domain names, understanding IPv4 addressing, CIDR notation, subnetting basics, and identifying common network ports used by services.
 
-This is concept-focused — research, understand, and document in your own words.
+This day combined both theory and hands-on validation using Linux networking commands.
 
 ---
 
-## Expected Output
-- A markdown file: `day-15-networking-concepts.md`
+## Topics Covered
+
+### DNS (Domain Name System)
+
+- How domain names resolve to IP addresses
+- DNS lookup flow:
+  - Local cache
+  - Recursive resolver
+  - Root DNS servers
+  - TLD servers
+  - Authoritative DNS servers
+
+- DNS record types:
+  - A
+  - AAAA
+  - CNAME
+  - MX
+  - NS
 
 ---
 
-## Challenge Tasks
+### IP Addressing
 
-### Task 1: DNS – How Names Become IPs
-1. Explain in 3–4 lines: what happens when you type `google.com` in a browser?
-2. What are these record types? Write one line each:
-   - `A`, `AAAA`, `CNAME`, `MX`, `NS`
-3. Run: `dig google.com` — identify the A record and TTL from the output
+- IPv4 structure
+- Public vs Private IPs
+- Private IP ranges:
+  - `10.0.0.0/8`
+  - `172.16.0.0/12`
+  - `192.168.0.0/16`
 
----
+- Identifying local/private IP using:
 
-### Task 2: IP Addressing
-1. What is an IPv4 address? How is it structured? (e.g., `192.168.1.10`)
-2. Difference between **public** and **private** IPs — give one example of each
-3. What are the private IP ranges?
-   - `10.x.x.x`, `172.16.x.x – 172.31.x.x`, `192.168.x.x`
-4. Run: `ip addr show` — identify which of your IPs are private
-
----
-
-### Task 3: CIDR & Subnetting
-1. What does `/24` mean in `192.168.1.0/24`?
-2. How many usable hosts in a `/24`? A `/16`? A `/28`?
-3. Explain in your own words: why do we subnet?
-4. Quick exercise — fill in:
-
-| CIDR | Subnet Mask | Total IPs | Usable Hosts |
-|------|-------------|-----------|--------------|
-| /24  | ?           | ?         | ?            |
-| /16  | ?           | ?         | ?            |
-| /28  | ?           | ?         | ?            |
-
----
-
-### Task 4: Ports – The Doors to Services
-1. What is a port? Why do we need them?
-2. Document these common ports:
-
-| Port | Service |
-|------|---------|
-| 22   | ?       |
-| 80   | ?       |
-| 443  | ?       |
-| 53   | ?       |
-| 3306 | ?       |
-| 6379 | ?       |
-| 27017| ?       |
-
-3. Run `ss -tulpn` — match at least 2 listening ports to their services
-
----
-
-### Task 5: Putting It Together
-Answer in 2–3 lines each:
-- You run `curl http://myapp.com:8080` — what networking concepts from today are involved?
-- Your app can't reach a database at `10.0.1.50:3306` — what would you check first?
-
----
-
-## Documentation
-
-Create `day-15-networking-concepts.md` with:
-- Your answers to each task
-- Command outputs from `dig` and `ss`
-- The filled CIDR table
-- What you learned (3 key points)
-
----
-
-## Submission
-1. Add `day-15-networking-concepts.md` to `2026/day-15/`
-2. Commit and push to your fork
-
----
-
-## Learn in Public
-
-Share what you learned about DNS, subnets, or ports on LinkedIn.
-
-```
-#90DaysOfDevOps #DevOpsKaJosh #TrainWithShubham
+```bash
+ip addr show
 ```
 
-Happy Learning!
-**TrainWithShubham**
+---
+
+### CIDR & Subnetting
+
+- Understanding CIDR notation
+- Network bits vs Host bits
+- Host calculation examples:
+  - `/24`
+  - `/16`
+  - `/28`
+
+- Subnet masks and usable host ranges
+- Why subnetting matters in cloud networking
+
+---
+
+### Ports & Services
+
+Common service ports:
+
+| Port  | Service |
+| ----- | ------- |
+| 22    | SSH     |
+| 53    | DNS     |
+| 80    | HTTP    |
+| 443   | HTTPS   |
+| 3306  | MySQL   |
+| 6379  | Redis   |
+| 27017 | MongoDB |
+
+Understanding listening services using:
+
+```bash
+ss -tulpn
+```
+
+---
+
+## Hands-on Commands Used
+
+```bash
+dig google.com
+ip addr show
+ss -tulpn
+```
+
+Additional useful commands:
+
+```bash
+curl -v https://google.com
+ping google.com
+nslookup google.com
+```
+
+---
+
+## Files in this Directory
+
+```text
+day-15/
+├── screenshots/
+├── day-15-networking-concepts.md
+├── referance.md
+└── README.md
+```
+
+---
+
+## Key Learnings
+
+- DNS converts human-readable names into IP addresses.
+- Private IP addressing is foundational in cloud environments like AWS VPCs.
+- CIDR notation helps design scalable and efficient networks.
+- Ports allow multiple services to communicate on a single machine.
+- Linux networking commands are essential for troubleshooting.
+
+---
+
+## Outcome
+
+This day strengthened practical networking fundamentals required for:
+
+- Linux administration
+- Cloud networking
+- Kubernetes networking
+- Service troubleshooting
+- DevOps production debugging
+
+---
+
+**Day 15 complete.**
